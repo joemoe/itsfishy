@@ -1,0 +1,3 @@
+[submodule "phaser-plugins"]
+	path = phaser-plugins
+	url = https://github.com/gruzilla/phaser-plugins

@@ -1,0 +1,50 @@
+{
+  "globals"     : { "Phaser": false, "PIXI": false, "p2": false, "CocoonJS": false },
+
+
+  "browser"     : true,
+
+
+  "devel"       : true,
+
+
+  "es3"         : true,
+  "esnext"      : false,
+  "strict"      : false,
+  "globalstrict": false,
+
+
+  "bitwise"     : false,
+  "boss"        : true,
+  "camelcase"   : true,
+  "curly"       : true,
+  "eqeqeq"      : false,
+  "eqnull"      : true,
+  "evil"        : false,
+  "expr"        : false,
+  "forin"       : false,
+  "freeze"      : true,
+  "funcscope"   : true,
+  "immed"       : true,
+  "latedef"     : true,
+  "laxbreak"    : false,
+  "laxcomma"    : false,
+  "loopfunc"    : true,
+  "noarg"       : true,
+  "notypeof"    : false,
+  "shadow"      : true,
+  "smarttabs"   : false,
+  "supernew"    : false,
+  "undef"       : true,
+  "unused"      : true,
+
+
+  "indent"      : 4,
+  "newcap"      : true,
+  "noempty"     : true,
+  "nonew"       : true,
+  "plusplus"    : false,
+  "quotmark"    : false,
+  "sub"         : true,
+  "trailing"    : true
+}

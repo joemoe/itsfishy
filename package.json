@@ -1,0 +1,33 @@
+{
+  "name": "itsfishy",
+  "version": "0.0.0",
+  "description": "very fishy game",
+  "main": "build/main.js",
+  "dependencies": {
+    "grunt": "~0.4.5",
+    "grunt-browserify2": "~0.1.8",
+    "time-grunt": "~1.0.0",
+    "load-grunt-tasks": "~3.1.0",
+    "load-grunt-config": "~0.16.0",
+    "grunt-contrib-jshint": "~0.11.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-copy": "~0.7.0",
+    "grunt-contrib-clean": "~0.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joemoe/itsfishy.git"
+  },
+  "keywords": [
+    "fishy"
+  ],
+  "author": "gruzilla <grillen@abendstille.at>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joemoe/itsfishy/issues"
+  }
+}
