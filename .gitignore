@@ -4,3 +4,7 @@ bower_components
 node_modules
 build
 dist
+
+# files/folders created by phpstorm
+atlassian-ide-plugin.xml
+.idea
