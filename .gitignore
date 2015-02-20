@@ -8,3 +8,4 @@ dist
 # files/folders created by phpstorm
 atlassian-ide-plugin.xml
 .idea
+.DS_Store
