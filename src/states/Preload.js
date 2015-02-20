@@ -17,12 +17,13 @@ Preload.prototype = {
         this.game.load.image('play', 'assets/images/play.png');
         this.game.load.image('obstacle', 'assets/images/obstacle.png');
         this.game.load.image('killer', 'assets/images/killer.png');
-
         this.game.load.image('breadcrumb', 'assets/images/breadcrumb.png');
-        game.load.spritesheet('timer', 'assets/images/timer.png', 150, 20);
 
-        // load additional assets (like sprites or audio streams) here
-        // this.game.load.spritesheet('numbers', 'assets/numbers.png', 100, 100);
+        // load additional assets (like sprites or audaleio streams) here
+        this.game.load.spritesheet('timer', 'assets/images/timer.png', 150, 20);
+
+        // load levels
+        this.game.load.json('level1', 'assets/levels/level1.json');
 
         // load physic assets
         /*
