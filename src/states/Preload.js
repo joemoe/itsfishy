@@ -16,6 +16,7 @@ Preload.prototype = {
         this.game.load.image('loading', 'assets/images/loading.png');
         this.game.load.image('play', 'assets/images/play.png');
         this.game.load.image('obstacle', 'assets/images/obstacle.png');
+        this.game.load.image('killer', 'assets/images/killer.png');
 
         // load additional assets (like sprites or audio streams) here
         // this.game.load.spritesheet('numbers', 'assets/numbers.png', 100, 100);

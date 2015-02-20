@@ -2,11 +2,14 @@
 
 var Obstacle = require('../components/Obstacle.js');
 var Fish = require('../components/Fish.js');
+var Killer = require('../components/Killer.js');
 
 var ItsFishy = function (game) {
     this.score = 0;
     this.fish = null;
     this.obstacles = null;
+
+    this.killers = null;
 };
 
 ItsFishy.prototype = {
@@ -21,6 +24,9 @@ ItsFishy.prototype = {
         this.obstacles.add(demoObstacle);
         this.obstacles.add(demoObstacle2);
 
+        this.killers = this.game.add.group();
+        var demoKiller = new Killer(this.game, 200, 100);
+        this.killers.add(demoKiller);
 
         this.fish = this.game.add.group();
 
@@ -42,6 +48,7 @@ ItsFishy.prototype = {
             this.game.automata.update();
         }, this);
         this.game.physics.arcade.collide(this.obstacles, this.fish);
+        this.game.physics.arcade.collide(this.killers, this.fish, function(killer, fish) {fish.kill();});
         // this.game.state.start('GameOver', true, false, this.score);
     }
 };
