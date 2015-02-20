@@ -9,6 +9,7 @@ var ItsFishy = function () {
     this.score = 0;
     this.breadCrumbSeconds = 3;
     this.breadCrumLifespan = 5;
+    this.cameraSpeed = 1; // pixel per update
     /** @type {Phaser.Group} */
     this.fish = null;
     this.obstacles = null;
@@ -63,6 +64,7 @@ ItsFishy.prototype = {
             }
         };
         this.visualTimerOptions = {
+            fixedToCamera: true,
             game: this.game,
             x: 650,
             y: 0,
@@ -76,10 +78,56 @@ ItsFishy.prototype = {
         };
     },
 
-    create: function() {
+    loadObstacles: function (obstacles) {
+        for (var i = 0; i < obstacles.length; i++) {
+            var obstacle = new Obstacle(this.game, obstacles[i].x, obstacles[i].y);
+            this.obstacles.add(obstacle);
+        }
+    },
+
+    loadDeathZones: function (deathZones) {
+        for (var i = 0; i < deathZones.length; i++) {
+            var deathZone = new Killer(this.game, deathZones[i].x, deathZones[i].y);
+            deathZone.body.onBeginContact.add(function(body) {
+                if(this.fish.getIndex(body.sprite) != -1) {
+                    body.sprite.kill();
+                }
+            }, this);
+            this.killers.add(deathZone);
+        }
+    },
+
+    loadLevel: function (levelKey) {
+        var level = game.cache.getJSON(levelKey);
+        this.game.world.setBounds(0, 0, level.world.width, level.world.height);
+
+        this.loadObstacles(level.obstacles);
+        this.loadDeathZones(level.deathZones);
+    },
+
+    loadFish: function () {
+        for (var i = 0; i < 10; i++) {
+            this.fish.add(new Fish(this.game, Math.random() * 600, Math.random() * 400));
+        }
+
+        /** demo polygon collision - needs physics assets from Preload.js
+         var collisionSprite = this.game.add.sprite(128, 128, 'check');
+         this.game.physics.p2.enableBody(collisionSprite, true);
+
+         collisionSprite.body.clearShapes();
+         collisionSprite.body.loadPolygon('physicsData', 'check');
+         */
+    },
+
+    initializeGroups: function () {
         this.obstacles = this.game.add.group();
         this.fish = this.game.add.group();
         this.breadcrumbs = this.game.add.group();
+        this.killers = this.game.add.group();
+    },
+
+    create: function() {
+        this.initializeGroups();
 
         this.initializeComponentOptions();
 
@@ -87,21 +135,15 @@ ItsFishy.prototype = {
         this.loadInput();
         this.loadBreadCrumbReloader();
 
-        var demoObstacle = new Obstacle(this.game, 300, 300);
+        this.loadLevel('level1');
 
-        var demoObstacle2 = new Obstacle(this.game, 400, 400);
+        this.loadFish();
 
         this.obstacles.add(demoObstacle);
         this.obstacles.add(demoObstacle2);
 
         this.killers = this.game.add.group();
         var demoKiller = new Killer(this.game, 200, 100);
-        demoKiller.body.onBeginContact.add(function(body) {
-            if(this.fish.getIndex(body.sprite) != -1) {
-                body.sprite.kill();
-            }
-
-        }, this);
         this.killers.add(demoKiller);
 
         this.game.automata.setOptions(this.automataOptions);
@@ -133,8 +175,8 @@ ItsFishy.prototype = {
             this.breadCrumbAvailable = false;
 
             var bread = this.breadcrumbs.create(
-                this.game.input.x,
-                this.game.input.y,
+                this.game.input.x + this.game.camera.x,
+                this.game.input.y + this.game.camera.y,
                 'breadcrumb'
             );
             bread.id = Math.random();
@@ -172,6 +214,9 @@ ItsFishy.prototype = {
         if (game.input.activePointer.isDown) {
             this.addBread();
         }
+
+        this.game.camera.x += this.cameraSpeed;
+    }
     },
 
     render: function() {

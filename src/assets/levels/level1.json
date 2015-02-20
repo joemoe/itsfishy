@@ -1,0 +1,25 @@
+{
+  "world": {
+    "width": 4000,
+    "height": 600
+  },
+  "obstacles": [
+    {
+      "asset": "obstacle",
+      "x": 300,
+      "y": 300
+    },
+    {
+      "asset": "obstacle",
+      "x": 400,
+      "y": 400
+    }
+  ],
+  "deathZones": [
+    {
+      "asset": "killer",
+      "x": 200,
+      "y": 100
+    }
+  ]
+}
