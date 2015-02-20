@@ -141,7 +141,14 @@ ItsFishy.prototype = {
 
 
             this.game.physics.p2.enable(bread);
-            bread.body.immovable = true;
+            bread.body.static = true;
+
+            bread.body.onBeginContact.add(function(body) {
+                console.log(body);
+                if(this.fish.getIndex(body.sprite) != -1) {
+                    bread.kill();
+                }
+            }, this);
 
             this.game.time.events.add(
                 Phaser.Timer.SECOND * this.breadCrumLifespan,
@@ -150,13 +157,6 @@ ItsFishy.prototype = {
                 bread.id
             );
 
-        }
-    },
-
-    collideBread: function (bread, fish) {
-        if (bread) {
-            bread.kill();
-            return false;
         }
     },
 
