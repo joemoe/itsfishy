@@ -5,10 +5,13 @@ var VisualTimer = require('../components/VisualTimer.js');
 var ItsFishy = function (game) {
     this.score = 0;
     this.breadCrumbSeconds = 3;
+    this.breadCrumLifespan = 5;
+    /** @type {Phaser.Group} */
     this.fish = null;
 
     this.breadCrumbAvailable = false;
     this.breadcrumbReloader = null;
+    /** @type {Phaser.Group} */
     this.breadcrumbs = null;
 };
 
@@ -87,6 +90,11 @@ ItsFishy.prototype = {
          */
     },
 
+    removeBread: function () {
+        var bread = this.breadcrumbs.getFirstAlive();
+        bread.kill();
+    },
+
     addBread: function () {
         if (this.breadCrumbAvailable) {
 
@@ -97,6 +105,13 @@ ItsFishy.prototype = {
                 this.game.input.y,
                 'breadcrumb'
             );
+
+            this.game.time.events.add(
+                Phaser.Timer.SECOND * this.breadCrumLifespan,
+                this.removeBread,
+                this
+            );
+
         }
     },
 
