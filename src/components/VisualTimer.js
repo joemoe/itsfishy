@@ -23,9 +23,15 @@
         if (opts.key) {
             key = opts.key;
         }
-        this.game.add.sprite(opts.x, opts.y, key, 1);
+        var backgroundSprite = this.game.add.sprite(opts.x, opts.y, key, 1);
         this.sprite = this.game.add.sprite(opts.x, opts.y, key, 0);
         this.fullWidth = this.sprite.width;
+
+        if (opts.fixedToCamera) {
+            this.sprite.fixedToCamera = true;
+            backgroundSprite.fixedToCamera = true;
+        }
+
         this.reset();
     }
 
