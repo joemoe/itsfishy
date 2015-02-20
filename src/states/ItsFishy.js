@@ -19,12 +19,14 @@ var ItsFishy = function () {
     this.breadcrumbs = null;
 
     this.killers = null;
+
+    this.lastFish = null;
 };
 
 ItsFishy.prototype = {
 
     loadPhysics: function () {
-        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+        this.game.physics.startSystem(Phaser.Physics.P2JS);
     },
 
     loadInput: function () {
@@ -94,12 +96,19 @@ ItsFishy.prototype = {
 
         this.killers = this.game.add.group();
         var demoKiller = new Killer(this.game, 200, 100);
+        demoKiller.body.onBeginContact.add(function(body) {
+            if(this.fish.getIndex(body.sprite) != -1) {
+                body.sprite.kill();
+            }
+
+        }, this);
         this.killers.add(demoKiller);
 
         this.game.automata.setOptions(this.automataOptions);
 
+
         for (var i = 0; i < 10; i++) {
-            this.fish.add(new Fish(this.game, Math.random() * 600, Math.random() * 400));
+            this.fish.add(this.lastFish = new Fish(this.game, Math.random() * 600, Math.random() * 400));
         }
 
         /** demo polygon collision - needs physics assets from Preload.js
@@ -131,7 +140,7 @@ ItsFishy.prototype = {
             bread.id = Math.random();
 
 
-            this.game.physics.arcade.enable(bread);
+            this.game.physics.p2.enable(bread);
             bread.body.immovable = true;
 
             this.game.time.events.add(
@@ -160,21 +169,19 @@ ItsFishy.prototype = {
             this.game.automata.update();
         }, this);
 
-        this.game.physics.arcade.collide(this.obstacles, this.fish);
-        this.game.physics.arcade.collide(this.killers, this.fish, function(killer, fish) {fish.kill();});
-        this.game.physics.arcade.collide(
-            this.breadcrumbs,
-            this.fish,
-            this.collideBread,
-            null,
-            this
-        );
-        // this.game.state.start('GameOver', true, false, this.score);
-
         if (game.input.activePointer.isDown) {
             this.addBread();
         }
-    }
+    },
+
+    render: function() {
+        // this.fish.forEach(function(fish) {
+        //     this.game.debug.spriteBounds(fish);
+        // }, this);
+        // this.obstacles.forEach(function(fish) {
+        //     this.game.debug.spriteBounds(fish);
+        // }, this);
+    },
 };
 
 module.exports = ItsFishy;

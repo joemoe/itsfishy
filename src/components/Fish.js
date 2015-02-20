@@ -2,7 +2,7 @@
 
 var Fish = function(game, x, y) {
     Phaser.Sprite.call(this, game, x, y, 'fish');
-    this.game.physics.arcade.enable(this);
+    this.game.physics.p2.enable(this);
 
     this.body.collideWorldBounds = true;
     this.body.allowGravity = false;

@@ -2,9 +2,9 @@
 
 var Killer = function(game, x, y) {
 	Phaser.Sprite.call(this, game, x, y, 'killer');
-	this.game.physics.arcade.enable(this);
+	this.game.physics.p2.enable(this);
 
-	this.body.immovable = true;
+	this.body.static = true;
 }
 
 Killer.prototype = Object.create(Phaser.Sprite.prototype);
