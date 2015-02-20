@@ -2,6 +2,8 @@
 
 var Obstacle = require('../components/Obstacle.js');
 var VisualTimer = require('../components/VisualTimer.js');
+var Fish = require('../components/Fish.js');
+var Killer = require('../components/Killer.js');
 
 var ItsFishy = function (game) {
     this.score = 0;
@@ -15,6 +17,8 @@ var ItsFishy = function (game) {
     this.breadcrumbReloader = null;
     /** @type {Phaser.Group} */
     this.breadcrumbs = null;
+
+    this.killers = null;
 };
 
 ItsFishy.prototype = {
@@ -70,6 +74,9 @@ ItsFishy.prototype = {
         this.obstacles.add(demoObstacle);
         this.obstacles.add(demoObstacle2);
 
+        this.killers = this.game.add.group();
+        var demoKiller = new Killer(this.game, 200, 100);
+        this.killers.add(demoKiller);
 
         this.game.automata.setOptions({
             flocking: {
@@ -79,16 +86,7 @@ ItsFishy.prototype = {
         });
 
         for (var i = 0; i < 10; i++) {
-            var newFish = this.fish.create(
-                Math.random() * 600,
-                Math.random() * 400,
-                'fish'
-            );
-
-            this.game.physics.arcade.enable(newFish);
-
-            newFish.body.collideWorldBounds = true;
-            newFish.body.allowGravity = false;
+            this.fish.add(new Fish(this.game, Math.random() * 600, Math.random() * 400));
         }
 
         /** demo polygon collision - needs physics assets from Preload.js
@@ -146,6 +144,7 @@ ItsFishy.prototype = {
             this.game.automata.update();
         }, this);
         this.game.physics.arcade.collide(this.obstacles, this.fish);
+        this.game.physics.arcade.collide(this.killers, this.fish, function(killer, fish) {fish.kill();});
         this.game.physics.arcade.collide(
             this.breadcrumbs,
             this.fish,

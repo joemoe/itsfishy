@@ -16,6 +16,7 @@ Preload.prototype = {
         this.game.load.image('loading', 'assets/images/loading.png');
         this.game.load.image('play', 'assets/images/play.png');
         this.game.load.image('obstacle', 'assets/images/obstacle.png');
+        this.game.load.image('killer', 'assets/images/killer.png');
 
         this.game.load.image('breadcrumb', 'assets/images/breadcrumb.png');
         game.load.spritesheet('timer', 'assets/images/timer.png', 150, 20);
