@@ -100,9 +100,11 @@ ItsFishy.prototype = {
          */
     },
 
-    removeBread: function () {
+    removeBread: function (breadId) {
         var bread = this.breadcrumbs.getFirstAlive();
-        bread.kill();
+        if (bread && bread.id === breadId) {
+            bread.kill();
+        }
     },
 
     addBread: function () {
@@ -110,18 +112,31 @@ ItsFishy.prototype = {
 
             this.breadCrumbAvailable = false;
 
-            this.breadcrumbs.create(
+            var bread = this.breadcrumbs.create(
                 this.game.input.x,
                 this.game.input.y,
                 'breadcrumb'
             );
+            bread.id = Math.random();
+
+
+            this.game.physics.arcade.enable(bread);
+            bread.body.immovable = true;
 
             this.game.time.events.add(
                 Phaser.Timer.SECOND * this.breadCrumLifespan,
                 this.removeBread,
-                this
+                this,
+                bread.id
             );
 
+        }
+    },
+
+    collideBread: function (bread, fish) {
+        if (bread) {
+            bread.kill();
+            return false;
         }
     },
 
@@ -131,6 +146,13 @@ ItsFishy.prototype = {
             this.game.automata.update();
         }, this);
         this.game.physics.arcade.collide(this.obstacles, this.fish);
+        this.game.physics.arcade.collide(
+            this.breadcrumbs,
+            this.fish,
+            this.collideBread,
+            null,
+            this
+        );
         // this.game.state.start('GameOver', true, false, this.score);
 
         if (game.input.activePointer.isDown) {
