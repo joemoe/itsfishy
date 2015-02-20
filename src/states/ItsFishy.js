@@ -1,6 +1,7 @@
 'use strict';
 
 var Obstacle = require('../components/Obstacle.js');
+var Fish = require('../components/Fish.js');
 
 var ItsFishy = function (game) {
     this.score = 0;
@@ -31,16 +32,7 @@ ItsFishy.prototype = {
         });
 
         for (var i = 0; i < 10; i++) {
-            var newFish = this.fish.create(
-                Math.random() * 600,
-                Math.random() * 400,
-                'fish'
-            );
-
-            this.game.physics.arcade.enable(newFish);
-
-            newFish.body.collideWorldBounds = true;
-            newFish.body.allowGravity = false;
+            this.fish.add(new Fish(this.game, Math.random() * 600, Math.random() * 400));
         }
     },
 
