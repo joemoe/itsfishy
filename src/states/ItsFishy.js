@@ -166,7 +166,6 @@ ItsFishy.prototype = {
             bread.body.static = true;
 
             bread.body.onBeginContact.add(function(body) {
-                console.log(body);
                 if(this.fish.getIndex(body.sprite) != -1) {
                     bread.kill();
                 }
@@ -183,16 +182,22 @@ ItsFishy.prototype = {
     },
 
     update: function() {
+        var alive = 0;
         this.fish.forEach(function(fish) {
+            if (!fish.alive) {
+                return;
+            }
             this.game.automata.setSprite(fish);
-            this.breadcrumbs.forEach(function(bread) {
-                this.game.automata.seek(bread);
-            }, this);
             this.game.automata.update();
+            alive++;
         }, this);
 
         if (game.input.activePointer.isDown) {
             this.addBread();
+        }
+
+        if (alive === 0) {
+            this.game.state.start('GameOver', this.score);
         }
 
         this.game.camera.x += this.cameraSpeed;

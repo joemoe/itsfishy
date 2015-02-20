@@ -20,6 +20,21 @@
       "asset": "killer",
       "x": 200,
       "y": 100
+    },
+    {
+      "asset": "killer",
+      "x": 600,
+      "y": 100
+    },
+    {
+      "asset": "killer",
+      "x": 1000,
+      "y": 100
+    },
+    {
+      "asset": "killer",
+      "x": 1400,
+      "y": 100
     }
   ]
 }
