@@ -1,5 +1,6 @@
 'use strict';
 
+var Obstacle = require('../components/Obstacle.js');
 var VisualTimer = require('../components/VisualTimer.js');
 
 var ItsFishy = function (game) {
@@ -8,6 +9,7 @@ var ItsFishy = function (game) {
     this.breadCrumLifespan = 5;
     /** @type {Phaser.Group} */
     this.fish = null;
+    this.obstacles = null;
 
     this.breadCrumbAvailable = false;
     this.breadcrumbReloader = null;
@@ -18,9 +20,7 @@ var ItsFishy = function (game) {
 ItsFishy.prototype = {
 
     loadPhysics: function () {
-        this.game.physics.startSystem(Phaser.Physics.P2JS);
-        //set some initial gravity
-        this.game.physics.p2.gravity.y = 500;
+        this.game.physics.startSystem(Phaser.Physics.ARCADE);
     },
 
     loadInput: function () {
@@ -58,8 +58,18 @@ ItsFishy.prototype = {
         this.loadInput();
         this.loadBreadCrumbReloader();
 
+        this.obstacles = this.game.add.group();
         this.fish = this.game.add.group();
         this.breadcrumbs = this.game.add.group();
+
+
+        var demoObstacle = new Obstacle(this.game, 300, 300);
+
+        var demoObstacle2 = new Obstacle(this.game, 400, 400);
+
+        this.obstacles.add(demoObstacle);
+        this.obstacles.add(demoObstacle2);
+
 
         this.game.automata.setOptions({
             flocking: {
@@ -75,7 +85,7 @@ ItsFishy.prototype = {
                 'fish'
             );
 
-            this.game.physics.enable(newFish);
+            this.game.physics.arcade.enable(newFish);
 
             newFish.body.collideWorldBounds = true;
             newFish.body.allowGravity = false;
@@ -120,6 +130,7 @@ ItsFishy.prototype = {
             this.game.automata.setSprite(fish);
             this.game.automata.update();
         }, this);
+        this.game.physics.arcade.collide(this.obstacles, this.fish);
         // this.game.state.start('GameOver', true, false, this.score);
 
         if (game.input.activePointer.isDown) {
