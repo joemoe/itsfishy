@@ -89,7 +89,7 @@ ItsFishy.prototype = {
         for (var i = 0; i < deathZones.length; i++) {
             var deathZone = new Killer(this.game, deathZones[i].x, deathZones[i].y);
             deathZone.body.onBeginContact.add(function(body) {
-                if(this.fish.getIndex(body.sprite) != -1) {
+                if (this.fish.getIndex(body.sprite) != -1) {
                     body.sprite.kill();
                 }
             }, this);
@@ -107,7 +107,7 @@ ItsFishy.prototype = {
 
     loadFish: function () {
         for (var i = 0; i < 10; i++) {
-            this.fish.add(new Fish(this.game, Math.random() * 600, Math.random() * 400));
+            this.fish.add(this.lastFish = new Fish(this.game, Math.random() * 600, Math.random() * 400));
         }
 
         /** demo polygon collision - needs physics assets from Preload.js
@@ -139,27 +139,7 @@ ItsFishy.prototype = {
 
         this.loadFish();
 
-        this.obstacles.add(demoObstacle);
-        this.obstacles.add(demoObstacle2);
-
-        this.killers = this.game.add.group();
-        var demoKiller = new Killer(this.game, 200, 100);
-        this.killers.add(demoKiller);
-
         this.game.automata.setOptions(this.automataOptions);
-
-
-        for (var i = 0; i < 10; i++) {
-            this.fish.add(this.lastFish = new Fish(this.game, Math.random() * 600, Math.random() * 400));
-        }
-
-        /** demo polygon collision - needs physics assets from Preload.js
-        var collisionSprite = this.game.add.sprite(128, 128, 'check');
-        this.game.physics.p2.enableBody(collisionSprite, true);
-
-        collisionSprite.body.clearShapes();
-        collisionSprite.body.loadPolygon('physicsData', 'check');
-         */
     },
 
     removeBread: function (breadId) {
@@ -216,7 +196,6 @@ ItsFishy.prototype = {
         }
 
         this.game.camera.x += this.cameraSpeed;
-    }
     },
 
     render: function() {
@@ -226,7 +205,7 @@ ItsFishy.prototype = {
         // this.obstacles.forEach(function(fish) {
         //     this.game.debug.spriteBounds(fish);
         // }, this);
-    },
+    }
 };
 
 module.exports = ItsFishy;
