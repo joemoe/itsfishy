@@ -5,7 +5,7 @@ var VisualTimer = require('../components/VisualTimer.js');
 var Fish = require('../components/Fish.js');
 var Killer = require('../components/Killer.js');
 
-var ItsFishy = function (game) {
+var ItsFishy = function () {
     this.score = 0;
     this.breadCrumbSeconds = 3;
     this.breadCrumLifespan = 5;
@@ -36,17 +36,7 @@ ItsFishy.prototype = {
     },
 
     loadBreadCrumbReloader: function () {
-        this.breadcrumbReloader = new VisualTimer({
-            game: this.game,
-            x: 650,
-            y: 0,
-            type: 'up',
-            seconds: this.breadCrumbSeconds,
-            onComplete: function() {
-                this.reset();
-                this.start();
-            }
-        });
+        this.breadcrumbReloader = new VisualTimer(this.visualTimerOptions);
 
         this.game.time.events.loop(
             Phaser.Timer.SECOND * this.breadCrumbSeconds,
@@ -57,15 +47,43 @@ ItsFishy.prototype = {
         this.breadcrumbReloader.start();
     },
 
-    create: function() {
-        this.loadPhysics();
-        this.loadInput();
-        this.loadBreadCrumbReloader();
+    initializeComponentOptions: function () {
+        this.automataOptions = {
+            seek: {
+                enabled: true,
+                priority: 1,
+                target: this.breadcrumbs
+            },
+            flocking: {
+                enabled: true,
+                flock: this.fish,
+                priority: 2
+            }
+        };
+        this.visualTimerOptions = {
+            game: this.game,
+            x: 650,
+            y: 0,
+            type: 'up',
+            seconds: this.breadCrumbSeconds,
+            onComplete: function() {
+                // called in context of timer, thats ok
+                this.reset();
+                this.start();
+            }
+        };
+    },
 
+    create: function() {
         this.obstacles = this.game.add.group();
         this.fish = this.game.add.group();
         this.breadcrumbs = this.game.add.group();
 
+        this.initializeComponentOptions();
+
+        this.loadPhysics();
+        this.loadInput();
+        this.loadBreadCrumbReloader();
 
         var demoObstacle = new Obstacle(this.game, 300, 300);
 
@@ -78,12 +96,7 @@ ItsFishy.prototype = {
         var demoKiller = new Killer(this.game, 200, 100);
         this.killers.add(demoKiller);
 
-        this.game.automata.setOptions({
-            flocking: {
-                enabled: true,
-                flock: this.fish
-            }
-        });
+        this.game.automata.setOptions(this.automataOptions);
 
         for (var i = 0; i < 10; i++) {
             this.fish.add(new Fish(this.game, Math.random() * 600, Math.random() * 400));
@@ -141,8 +154,12 @@ ItsFishy.prototype = {
     update: function() {
         this.fish.forEach(function(fish) {
             this.game.automata.setSprite(fish);
+            this.breadcrumbs.forEach(function(bread) {
+                this.game.automata.seek(bread);
+            }, this);
             this.game.automata.update();
         }, this);
+
         this.game.physics.arcade.collide(this.obstacles, this.fish);
         this.game.physics.arcade.collide(this.killers, this.fish, function(killer, fish) {fish.kill();});
         this.game.physics.arcade.collide(
