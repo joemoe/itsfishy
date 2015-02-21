@@ -1,0 +1,60 @@
+{
+  "world": {
+    "width": 1600,
+    "height": 600,
+    "cameraSpeed": 1,
+    "gameOverFishAmount": 1,
+    "fishAmount": 10
+  },
+  "obstacles": [
+
+//SQUARE ISLAND SIDE BOTTOM
+    { "x": 600, "y": 525, "asset": "island-left-top" },
+    { "x": 650, "y": 525, "asset": "island-right-top" },
+    { "x": 600, "y": 575, "asset": "island-left" },
+    { "x": 650, "y": 575, "asset": "island-right" },
+
+
+//SQUARE ISLAND MIDDLE
+    { "x": 800, "y": 200, "asset": "island-left-top" },
+    { "x": 850, "y": 200, "asset": "island-right-top" },
+    { "x": 800, "y": 250, "asset": "island-left-bottom" },
+    { "x": 850, "y": 250, "asset": "island-right-bottom" },
+
+//LONG ISLAND HORIZONTAL
+    { "x": 800, "y": 200, "asset": "island-left-top" },
+    { "x": 800, "y": 250, "asset": "island-left-bottom" },
+    { "x": 850, "y": 200, "asset": "island-top" },
+    { "x": 850, "y": 250, "asset": "island-bottom" },
+    { "x": 900, "y": 200, "asset": "island-right-top" },
+    { "x": 900, "y": 250, "asset": "island-right-bottom" },
+
+//LONG ISLAND VERTICAL
+    { "x": 800, "y": 200, "asset": "island-left-top" },
+    { "x": 800, "y": 250, "asset": "island-left-top" },
+    { "x": 800, "y": 300, "asset": "island-left" },
+    { "x": 850, "y": 200, "asset": "island-right-top" },
+    { "x": 850, "y": 250, "asset": "island-right" },
+    { "x": 850, "y": 250, "asset": "island-right-bottom" },
+
+
+
+  ],
+  "deathZones": [
+// OCTOPUS SMALL
+    { "x": 1500, "y": 150, "asset": "octopus-small"},
+// OCTOPUS 
+    { "x": 2200, "y": 400, "asset": "octopus"}
+  ],
+  "combined": [
+//GATE
+    {
+      "killer": {"x": 1000, "y": 0, "asset": "gate-transformator"},
+      "obstacel": {"x": 1050, "y": 0, "asset": "gate-pole"}
+    }
+  ],
+  "floaters": [
+// MATRAZE 480 x 170
+    { "x": 1000, "y": 400, "asset": "airmattress" }
+  ]
+}

@@ -49,7 +49,7 @@ Preload.prototype = {
         this.game.load.image('ducks-evil', 'assets/images/ducks-evil.png');
 
         // combined
-        this.game.load.image('gate-pole', 'assets/images/pole.png');
+        this.game.load.image('gate-pole', 'assets/images/pole.jpg');
         this.game.load.image('gate-transformator', 'assets/images/transformator.png');
 
         // island freak out
