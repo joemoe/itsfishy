@@ -13,6 +13,8 @@ var Fish = function(game, x, y) {
 
     this.animations.add('normal', [0]);
     this.animations.add('explode', [1]);
+    this.animations.add('win', [2]);
+    this.animations.add('speed', [3]);
 
     this.animations.play('normal');
 };
@@ -22,24 +24,27 @@ Fish.prototype.constructor = Fish;
 
 Fish.prototype.setOnSpeedBread = function() {
     this.onSpeedBread = true;
-    this.loadTexture('speedfish');
+    this.animations.play('speed');
     this.body.thrust(100);
 };
 
 Fish.prototype.setToNormal = function() {
     this.onSpeedBread = false;
-    this.loadTexture('fish');
+    this.animations.play('normal');
 };
 
 Fish.prototype.isOnSpeed = function() {
     return this.onSpeedBread;
 };
 
-Fish.prototype.kill = function() {
-    if (this.animations.currentAnim.name === 'explode') {
+Fish.prototype.kill = function(animation) {
+    if (typeof animation != 'string') {
+        animation = 'explode';
+    }
+    if (this.animations.currentAnim.name === animation) {
         return;
     }
-    this.animations.play('explode');
+    this.animations.play(animation);
     this.game.time.events.add(
         Phaser.Timer.SECOND * config.fishExplosionDuration,
         Phaser.Sprite.prototype.kill,
