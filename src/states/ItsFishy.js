@@ -296,9 +296,6 @@ ItsFishy.prototype = {
         if (alive <= this.gameOverFishAmount) {
             if (this.survivors > 0) {
 
-                console.debug(this.fish.countLiving());
-                console.debug(this.survivors);
-
                 return this.game.state.start(
                     'GameWon',
                     true,
@@ -308,7 +305,6 @@ ItsFishy.prototype = {
                 );
             }
 
-            console.debug(this.fish.countLiving());
             this.game.state.start(
                 'GameOver',
                 true,
