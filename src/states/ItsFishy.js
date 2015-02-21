@@ -403,24 +403,13 @@ ItsFishy.prototype = {
         }
     },
 
-    /*
-    render: function() {
-        this.game.debug.cameraInfo(this.game.camera, 32, 32);
-        // this.fish.forEach(function(fish) {
-        //     this.game.debug.spriteBounds(fish);
-        // }, this);
-        // this.obstacles.forEach(function(fish) {
-        //     this.game.debug.spriteBounds(fish);
-        // }, this);
-    },
-    */
-
+    /*************************  LEVEL BUILDING *******************************/
     dump: function(key) {
         if (typeof this[key] === 'undefined') {
             return;
         }
 
-        var items = []
+        var items = [];
         this[key].forEach(function(item) {
             items.push({
                 x: item.x,
@@ -447,6 +436,18 @@ ItsFishy.prototype = {
                 return this.killers.add(item);
         }
     }
+
+    /****************** DEBUG *************************************
+    render: function() {
+        this.game.debug.cameraInfo(this.game.camera, 32, 32);
+        // this.fish.forEach(function(fish) {
+        //     this.game.debug.spriteBounds(fish);
+        // }, this);
+        // this.obstacles.forEach(function(fish) {
+        //     this.game.debug.spriteBounds(fish);
+        // }, this);
+    }
+    */
 };
 
 module.exports = ItsFishy;
