@@ -7,6 +7,7 @@ var Killer = require('../components/Killer.js');
 var FlashMessage = require('../components/FlashMessage.js');
 var CombinedKiller = require('../components/CombinedKiller.js');
 var CombinedObstacle = require('../components/CombinedObstacle.js');
+var Floater = require('../components/Floater.js');
 var config = require('../components/Configuration.js');
 
 var ItsFishy = function () {
@@ -14,6 +15,8 @@ var ItsFishy = function () {
     this.breadCrumbLifespan = config.breadCrumbDefaultLifespan;
     this.cameraSpeed = config.defaultCameraSpeed; // pixel per update
     this.gameOverFishAmount = config.fishDefaultGameOverAmount;
+
+    this.background;
 
     /** @type {FlashMessage} */
     this.flashMessage = null;
@@ -97,7 +100,7 @@ ItsFishy.prototype = {
 
     loadObstacles: function (obstacles) {
         for (var i = 0; i < obstacles.length; i++) {
-            var obstacle = new Obstacle(this.game, obstacles[i].x, obstacles[i].y);
+            var obstacle = new Obstacle(this.game, obstacles[i].x, obstacles[i].y, obstacles[i].asset);
             this.obstacles.add(obstacle);
         }
     },
@@ -111,6 +114,13 @@ ItsFishy.prototype = {
                 }
             }, this);
             this.killers.add(deathZone);
+        }
+    },
+
+    loadFloaters: function (floaters) {
+        for (var i = 0; i < floaters.length; i++) {
+            var floater = new Floater(this.game, floaters[i].x, floaters[i].y, floaters[i].asset);
+            this.floaters.add(floater);
         }
     },
 
@@ -147,6 +157,10 @@ ItsFishy.prototype = {
         if(level.hasOwnProperty('combined')) {
             this.loadCombined(level.combined);
         }
+        if(level.hasOwnProperty('floaters')) {
+            this.loadFloaters(level.floaters);
+        }
+
 
         if (level.world.hasOwnProperty('cameraSpeed')) {
             this.cameraSpeed = level.world.cameraSpeed;
@@ -184,18 +198,25 @@ ItsFishy.prototype = {
         }
     },
 
+    initializeGame: function() {
+        this.background = this.game.add.tileSprite(0, 0, 4000, 600, 'background');
+    },
+
     initializeGroups: function () {
         this.obstacles = this.game.add.group();
         this.fish = this.game.add.group();
         this.breadcrumbs = this.game.add.group();
         this.killers = this.game.add.group();
         this.combineds = this.game.add.group();
+        this.floaters = this.game.add.group();
     },
 
     create: function () {
+        this.initializeGame();
         this.initializeGroups();
 
         this.initializeComponentOptions();
+
 
         this.loadLevel('level1');
         this.loadStats();

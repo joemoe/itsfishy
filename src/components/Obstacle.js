@@ -1,7 +1,9 @@
 'use strict';
 
-var Obstacle = function(game, x, y) {
-    Phaser.Sprite.call(this, game, x, y, 'obstacle');
+var Obstacle = function(game, x, y, asset) {
+    Phaser.Sprite.call(this, game, x, y, asset);
+    this.width = 50;
+    this.height = 50;
 
     this.game.physics.p2.enable(this);
     this.body.static = true;

@@ -19,9 +19,26 @@ Preload.prototype = {
         this.game.load.image('obstacle', 'assets/images/obstacle.png');
         this.game.load.image('killer', 'assets/images/killer.png');
         this.game.load.image('breadcrumb', 'assets/images/breadcrumb.png');
-        this.game.load.image('land', 'assets/images/land.png');
+        this.game.load.image('land', 'assets/images/beach-real.png');
         this.game.load.image('combined-killer', 'assets/images/combined-killer.png');
         this.game.load.image('combined-obstacle', 'assets/images/combined-obstacle.png');
+        this.game.load.image('background', 'assets/images/water.jpg');
+
+        // island freak out
+        this.game.load.image('island', 'assets/images/island.png');
+        this.game.load.image('island-bottom', 'assets/images/island-bottom.png');
+        this.game.load.image('island-top', 'assets/images/island-top.png');
+        this.game.load.image('island-right', 'assets/images/island-right.png');
+        this.game.load.image('island-left', 'assets/images/island-left.png');
+        this.game.load.image('island-top-bottom', 'assets/images/island-top-bottom.png');
+        this.game.load.image('island-left-right', 'assets/images/island-left-right.png');
+        this.game.load.image('island-left-bottom', 'assets/images/island-left-bottom.png');
+        this.game.load.image('island-right-top', 'assets/images/island-right-top.png');
+        this.game.load.image('island-right-bottom', 'assets/images/island-right-bottom.png');
+        this.game.load.image('island-left-top', 'assets/images/island-left-top.png');
+
+        //floaters
+        this.game.load.image('airmattress', 'assets/images/airmattress.png');
 
         // load additional assets (like sprites or audaleio streams) here
         this.game.load.spritesheet('timer', 'assets/images/timer.png', 150, 20);

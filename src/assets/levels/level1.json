@@ -6,44 +6,24 @@
     "gameOverFishAmount": 1
   },
   "obstacles": [
-    {
-      "asset": "obstacle",
-      "x": 300,
-      "y": 300
-    },
-    {
-      "asset": "obstacle",
-      "x": 400,
-      "y": 400
-    }
+
+    { "x": 600, "y": 525, "asset": "island-left-top" },
+    { "x": 650, "y": 525, "asset": "island-right-top" },
+    { "x": 600, "y": 575, "asset": "island-left" },
+    { "x": 650, "y": 575, "asset": "island-right" },
+
+    { "x": 800, "y": 200, "asset": "island-left-top" },
+    { "x": 850, "y": 200, "asset": "island-right-top" },
+    { "x": 800, "y": 250, "asset": "island-left-bottom" },
+    { "x": 850, "y": 250, "asset": "island-right-bottom" }
+
+
   ],
   "deathZones": [
-    {
-      "asset": "killer",
-      "x": 200,
-      "y": 100
-    },
-    {
-      "asset": "killer",
-      "x": 1000,
-      "y": 100
-    },
-    {
-      "asset": "killer",
-      "x": 1400,
-      "y": 100
-    }
   ],
   "combined": [
-    {
-      "killer": { 
-        "x": 600,
-        "y": 50
-      },
-      "obstacle": {
-        "x": 700,
-        "y": 300
-      }
-    }
+  ],
+  "floaters": [
+    { "x": 1000, "y": 400, "asset": "airmattress" }
   ]
 }
