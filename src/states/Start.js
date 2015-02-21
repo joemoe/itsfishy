@@ -18,6 +18,9 @@ Start.prototype.create = function () {
         0, 0, 'startscreen'
     );
     Play.prototype.create.call(this);
+
+    this.playText.x = 650;
+    this.playText.y = 335;
 };
 
 module.exports = Start;

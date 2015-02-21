@@ -5,16 +5,16 @@ var config = require('../components/Configuration.js');
 
 var GameWon = function () {
     Play.call(this);
-    this.survivers = 0;
+    this.survivors = 0;
 };
 
 GameWon.prototype = Object.create(Play.prototype);
 GameWon.prototype.constructor = GameWon;
 
-GameWon.prototype.init = function(levelKey, survivers) {
+GameWon.prototype.init = function(levelKey, survivors) {
     Play.prototype.init.call(this, levelKey);
 
-    this.survivers = survivers;
+    this.survivors = survivors;
 };
 
 GameWon.prototype.create = function () {
@@ -28,13 +28,13 @@ GameWon.prototype.create = function () {
     gameWonTitle.fixedToCamera = true;
     gameWonTitle.anchor.setTo(0.5, 0.5);
 
-    var surviversText = this.game.add.text(
+    var survivorsText = this.game.add.text(
         this.game.world.centerX,
         this.game.world.centerY * 1.5,
-        'Survivers: ' + this.survivers,
+        'Survivors: ' + this.survivors,
         config.gameWonTextStyle
     );
-    surviversText.anchor.setTo(0.5, 0.5);
+    survivorsText.anchor.setTo(0.5, 0.5);
 };
 
 module.exports = GameWon;

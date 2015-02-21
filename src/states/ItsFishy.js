@@ -302,7 +302,7 @@ ItsFishy.prototype = {
                     true,
                     false,
                     undefined,
-                    this.survivers
+                    this.survivors + this.fish.countLiving()
                 );
             }
 

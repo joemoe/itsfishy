@@ -26,8 +26,8 @@ Play.prototype = {
         this.game.world.setBounds(0, 0, config.gameWidth, config.gameHeight);
 
         this.playText = this.game.add.text(
-            700,
-            350,
+            this.game.world.centerX,
+            this.game.world.centerY,
             this.playButtonText,
             config.playButtonTextStyle
         );
@@ -36,14 +36,14 @@ Play.prototype = {
 
     update: function() {
         if (
-            game.input.activePointer.positionUp &&
-            game.input.activePointer.positionUp.x != 0 &&
-            game.input.activePointer.positionUp.y != 0
+            this.game.input.activePointer.positionUp &&
+            this.game.input.activePointer.positionUp.x != 0 &&
+            this.game.input.activePointer.positionUp.y != 0
         ) {
             var bounds = this.playText.getBounds();
             if (bounds.contains(
-                    game.input.activePointer.positionUp.x,
-                    game.input.activePointer.positionUp.y
+                    this.game.input.activePointer.positionUp.x,
+                    this.game.input.activePointer.positionUp.y
                 )) {
                 this.playItsFishy();
             }
