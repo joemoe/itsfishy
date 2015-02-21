@@ -1,7 +1,6 @@
 'use strict';
 
 var Obstacle = require('../components/Obstacle.js');
-var VisualTimer = require('../components/VisualTimer.js');
 var Fish = require('../components/Fish.js');
 var Killer = require('../components/Killer.js');
 var Bread = require('../components/Bread.js');
@@ -344,6 +343,39 @@ ItsFishy.prototype = {
         // this.obstacles.forEach(function(fish) {
         //     this.game.debug.spriteBounds(fish);
         // }, this);
+    },
+
+    dump: function(key) {
+        if (typeof this[key] === 'undefined') {
+            return;
+        }
+
+        var items = []
+        this[key].forEach(function(item) {
+            items.push({
+                x: item.x,
+                y: item.y,
+                asset: item.key
+            });
+        });
+
+        console.debug(JSON.stringify(items));
+    },
+
+    makeNew: function(key, x, y, asset) {
+        if (typeof this[key] === 'undefined') {
+            return;
+        }
+
+        var item = null;
+        switch (key) {
+            case 'obstacles':
+                item = new Obstacle(this.game, x, y, asset);
+                return this.obstacles.add(item);
+            case 'killers':
+                item = new Killer(this.game, x, y, asset);
+                return this.killers.add(item);
+        }
     }
 };
 
