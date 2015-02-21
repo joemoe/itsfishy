@@ -1,48 +1,45 @@
 'use strict';
 
+var Play = require('./Play.js');
 var config = require('../components/Configuration.js');
 
 var GameWon = function () {
+    Play.call(this);
     this.survivers = 0;
 };
 
-GameWon.prototype = {
-    init: function(survivers) {
-        this.survivers = survivers;
-    },
+GameWon.prototype = Object.create(Play.prototype);
+GameWon.prototype.constructor = GameWon;
 
-    create: function () {
-        this.game.world.setBounds(0, 0, config.gameWidth, config.gameHeight);
-
-        var gameWonTitle = this.game.add.sprite(
-            this.game.world.centerX,
-            this.game.world.centerY / 2,
-            'gamewon'
-        );
-        gameWonTitle.fixedToCamera = true;
-        gameWonTitle.anchor.setTo(0.5, 0.5);
-
-        var playButton = this.game.add.button(
-            this.game.world.centerX,
-            this.game.world.centerY,
-            'play',
-            this.playItsFishy,
-            this
-        );
-        playButton.anchor.setTo(0.5, 0.5);
-
-        var surviversText = this.game.add.text(
-            this.game.world.centerX,
-            this.game.world.centerY * 1.5,
-            'Survivers: ' + this.survivers,
-            config.gameWonTextStyle
-        );
-        surviversText.anchor.setTo(0.5, 0.5);
-    },
-
-    playItsFishy: function () {
-        this.game.state.start('ItsFishy', true, false, 'level1');
+GameWon.prototype.init = function(levelKey, survivers) {
+    Play.prototype.init.call(this, levelKey);
+    if (typeof levelKey != 'string') {
+        this.levelKey = config.defaultLevel;
+    } else {
+        this.levelKey = levelKey;
     }
+
+    this.survivers = survivers;
+};
+
+GameWon.prototype.create = function () {
+    Play.prototype.create.call(this);
+
+    var gameWonTitle = this.game.add.sprite(
+        this.game.world.centerX,
+        this.game.world.centerY / 2,
+        'gamewon'
+    );
+    gameWonTitle.fixedToCamera = true;
+    gameWonTitle.anchor.setTo(0.5, 0.5);
+
+    var surviversText = this.game.add.text(
+        this.game.world.centerX,
+        this.game.world.centerY * 1.5,
+        'Survivers: ' + this.survivers,
+        config.gameWonTextStyle
+    );
+    surviversText.anchor.setTo(0.5, 0.5);
 };
 
 module.exports = GameWon;

@@ -9,6 +9,7 @@ var configuration = {
     fishRandomCreateBorder: 50,
     fishSpeedDuration: 2,
 
+    defaultPlayButtonText: 'play',
 
     flashMessageBlinkTime: 0.2,
     flashMessageRepeatCount: 6,
@@ -34,6 +35,12 @@ var configuration = {
 
     gameWonTextStyle: {
         font: '24px Comic Sans MS',
+        fill: '#ff00ff',
+        align: 'center'
+    },
+
+    playButtonTextStyle: {
+        font: '20px Comic Sans MS',
         fill: '#ff00ff',
         align: 'center'
     }

@@ -1,23 +1,17 @@
 'use strict';
 
+var Play = require('./Play.js');
+
 var Start = function () {
+    Play.call(this);
 };
 
-Start.prototype = {
-    create: function () {
-        var playButton = this.game.add.button(
-            this.game.world.centerX,
-            this.game.world.centerY,
-            'play',
-            this.playItsFishy,
-            this
-        );
-        playButton.anchor.setTo(0.5, 0.5);
-    },
+Start.prototype = Object.create(Play.prototype);
+Start.prototype.constructor = Start;
 
-    playItsFishy: function () {
-        this.game.state.start('ItsFishy', true, false, 'level1');
-    }
+
+Start.prototype.create = function () {
+    Play.prototype.create.call(this);
 };
 
 module.exports = Start;

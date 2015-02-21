@@ -1,35 +1,25 @@
 'use strict';
 
-var config = require('../components/Configuration.js');
+var Play = require('./Play.js');
 
-var GameOver = function (game) {
+var GameOver = function () {
+    Play.call(this);
 };
 
-GameOver.prototype = {
-    create: function () {
-        this.game.world.setBounds(0, 0, config.gameWidth, config.gameHeight);
+GameOver.prototype = Object.create(Play.prototype);
+GameOver.prototype.constructor = GameOver;
 
-        var gameOverTitle = this.game.add.sprite(
-            this.game.world.centerX,
-            this.game.world.centerY / 2,
-            'gameover'
-        );
-        gameOverTitle.fixedToCamera = true;
-        gameOverTitle.anchor.setTo(0.5, 0.5);
 
-        var playButton = this.game.add.button(
-            this.game.world.centerX,
-            this.game.world.centerY,
-            'play',
-            this.playItsFishy,
-            this
-        );
-        playButton.anchor.setTo(0.5, 0.5);
-    },
+GameOver.prototype.create = function () {
+    Play.prototype.create.call(this);
 
-    playItsFishy: function () {
-        this.game.state.start('ItsFishy', true, false, 'level1');
-    }
+    var gameOverTitle = this.game.add.sprite(
+        this.game.world.centerX,
+        this.game.world.centerY / 2,
+        'gameover'
+    );
+    gameOverTitle.fixedToCamera = true;
+    gameOverTitle.anchor.setTo(0.5, 0.5);
 };
 
 module.exports = GameOver;
