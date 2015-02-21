@@ -1,6 +1,8 @@
 'use strict';
 
-window.game = new Phaser.Game(800, 600, Phaser.AUTO, 'its-fishy');
+var config = require('../components/Configuration.js');
+
+window.game = new Phaser.Game(config.gameWidth, config.gameHeight, Phaser.AUTO, 'its-fishy');
 
 //window.game.plugins.add(Phaser.Plugin.Automata);
 

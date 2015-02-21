@@ -147,13 +147,9 @@ ItsFishy.prototype = {
 
         this.initializeComponentOptions();
 
-<<<<<<< HEAD
         this.loadLevel('level1');
-
-=======
         this.loadStats();
         this.loadPhysics();
->>>>>>> e0e2fb0c9f5d4e76b274467b748f68a3333b325c
         this.loadInput();
         this.loadBreadCrumbReloader();
 

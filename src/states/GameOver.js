@@ -1,15 +1,20 @@
 'use strict';
 
+var config = require('../components/Configuration.js');
+
 var GameOver = function (game) {
 };
 
 GameOver.prototype = {
     create: function () {
+        this.game.world.setBounds(0, 0, config.gameWidth, config.gameHeight);
+
         var gameOverTitle = this.game.add.sprite(
             this.game.world.centerX,
             160,
             'gameover'
         );
+        gameOverTitle.fixedToCamera = true;
         gameOverTitle.anchor.setTo(0.5, 0.5);
 
         var playButton = this.game.add.button(
