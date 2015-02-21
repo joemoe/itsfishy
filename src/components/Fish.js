@@ -2,8 +2,11 @@
 
 var config = require('./Configuration.js');
 
-var Fish = function(game, x, y) {
-    Phaser.Sprite.call(this, game, x, y, 'fish');
+var Fish = function(game, x, y, asset) {
+    if (typeof asset === 'undefined') {
+        asset = 'fish';
+    }
+    Phaser.Sprite.call(this, game, x, y, asset);
     this.game.physics.p2.enable(this);
     this.id = Math.random();
     this.onSpeedBread = false;

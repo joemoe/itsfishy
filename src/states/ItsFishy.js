@@ -38,6 +38,8 @@ var ItsFishy = function () {
 
     this.land = null;
     this.level = config.defaultLevel;
+
+    this.easterEggEnabled = false;
 };
 
 ItsFishy.prototype = {
@@ -241,7 +243,8 @@ ItsFishy.prototype = {
             this.fish.add(new Fish(
                 this.game,
                 offset + Math.random() * width + this.loadOffset,
-                offset + Math.random() * height
+                offset + Math.random() * height,
+                this.easterEggEnabled ? 'easteregg' : 'fish'
             ));
         }
     },
@@ -282,6 +285,7 @@ ItsFishy.prototype = {
         this.loadFish();
 
         this.game.automata.setOptions(this.automataOptions);
+        this.game.input.keyboard.addCallbacks(this, null, this.toggleEasterEgg, null);
     },
 
     removeBread: function (breadId) {
@@ -320,6 +324,22 @@ ItsFishy.prototype = {
         this.updateFish();
 
         this.game.camera.x += this.cameraSpeed;
+    },
+
+    toggleEasterEgg: function(keyboardEvent) {
+        if (keyboardEvent.keyCode === Phaser.Keyboard.G) {
+            if (this.easterEggEnabled) {
+                this.easterEggEnabled = false;
+                this.fish.forEach(function(fish) {
+                    fish.loadTexture('fish');
+                });
+            } else {
+                this.easterEggEnabled = true;
+                this.fish.forEach(function(fish) {
+                    fish.loadTexture('easteregg');
+                });
+            }
+        }
     },
 
     updateStats: function () {
