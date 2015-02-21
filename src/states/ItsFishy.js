@@ -11,6 +11,12 @@ var CombinedObstacle = require('../components/CombinedObstacle.js');
 var Floater = require('../components/Floater.js');
 var config = require('../components/Configuration.js');
 
+var BREAD_STATE = {
+    EMPTY: 1,
+    BREAD: 2,
+    SPEEDBREAD: 3
+};
+
 var ItsFishy = function () {
     this.breadCrumbReloadTime = config.breadCrumbDefaultReloadTime;
     this.cameraSpeed = config.defaultCameraSpeed; // pixel per update
@@ -22,8 +28,8 @@ var ItsFishy = function () {
     this.fish = null;
     this.obstacles = null;
 
-    this.breadCrumbAvailable = false;
-    this.breadcrumbReloader = null;
+    this.breadCrumbAvailable = BREAD_STATE.BREAD;
+    this.breadCrumbReloader = null;
     /** @type {Phaser.Group} */
     this.breadcrumbs = null;
     this.killers = null;
@@ -43,11 +49,17 @@ ItsFishy.prototype = {
     },
 
     reloadBread: function () {
-        this.breadCrumbAvailable = true;
+        this.breadCrumbAvailable = Math.random() * 10 > 9 ? BREAD_STATE.SPEEDBREAD : BREAD_STATE.BREAD;
+        this.breadCrumpLoader.animations.play(this.breadCrumbAvailable == BREAD_STATE.BREAD ? 'bread' : 'speedbread');
     },
 
     loadBreadCrumbReloader: function () {
-        this.breadcrumbReloader = new VisualTimer(this.visualTimerOptions);
+        this.breadCrumpLoader = this.game.add.sprite(800 - 79 - 10, 10, "breadcrumb-sprite");
+        this.breadCrumpLoader.fixedToCamera = true;
+        this.breadCrumpLoader.animations.add('empty', [0]);
+        this.breadCrumpLoader.animations.add('bread', [1]);
+        this.breadCrumpLoader.animations.add('speedbread', [2]);
+        this.breadCrumpLoader.animations.play('bread', false);
 
         this.game.time.events.loop(
             Phaser.Timer.SECOND * this.breadCrumbReloadTime,
@@ -55,7 +67,6 @@ ItsFishy.prototype = {
             this
         );
 
-        this.breadcrumbReloader.start();
     },
 
     initializeComponentOptions: function () {
@@ -230,20 +241,19 @@ ItsFishy.prototype = {
     },
 
     addBread: function () {
-        if (this.breadCrumbAvailable) {
+        if (this.breadCrumbAvailable != BREAD_STATE.EMPTY) {
 
-            this.breadCrumbAvailable = false;
 
             var bread;
 
-            if (game.input.keyboard.isDown(
-                    Phaser.Keyboard.SPACEBAR
-                )) {
+            if (this.breadCrumbAvailable == BREAD_STATE.SPEEDBREAD) {
                 bread = new SpeedBread(this.game);
             } else {
                 bread = new Bread(this.game);
             }
 
+            this.breadCrumbAvailable = BREAD_STATE.EMPTY;
+            this.breadCrumpLoader.animations.play('empty');
             this.breadcrumbs.add(bread);
         }
     },

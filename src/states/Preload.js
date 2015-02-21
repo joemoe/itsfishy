@@ -13,14 +13,17 @@ Preload.prototype = {
         // load images and unconfigured assets here
         this.game.load.image('fish', 'assets/images/fishright.png');
         this.game.load.image('speedfish', 'assets/images/speedfishright.png');
-        this.game.load.image('speedbreadcrumb', 'assets/images/speedbreadcrumb.png');
         this.game.load.image('gameover', 'assets/images/gameover.png');
         this.game.load.image('gamewon', 'assets/images/gamewon.png');
         this.game.load.image('loading', 'assets/images/loading.png');
         this.game.load.image('play', 'assets/images/play.png');
         this.game.load.image('obstacle', 'assets/images/obstacle.png');
         this.game.load.image('killer', 'assets/images/killer.png');
+
+        this.game.load.image('speedbreadcrumb', 'assets/images/speedbreadcrumb.png');
         this.game.load.image('breadcrumb', 'assets/images/breadcrumb.png');
+        this.game.load.spritesheet('breadcrumb-sprite', 'assets/images/breadcrumb-sprite.png', 79, 82);
+
         this.game.load.image('land', 'assets/images/beach-real.png');
         this.game.load.image('combined-killer', 'assets/images/combined-killer.png');
         this.game.load.image('combined-obstacle', 'assets/images/combined-obstacle.png');
