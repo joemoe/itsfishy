@@ -13,11 +13,6 @@ GameWon.prototype.constructor = GameWon;
 
 GameWon.prototype.init = function(levelKey, survivers) {
     Play.prototype.init.call(this, levelKey);
-    if (typeof levelKey != 'string') {
-        this.levelKey = config.defaultLevel;
-    } else {
-        this.levelKey = levelKey;
-    }
 
     this.survivers = survivers;
 };

@@ -11,8 +11,6 @@ var Play = function (playButtonText) {
     if (typeof playButtonText != 'string') {
         this.playButtonText = config.defaultPlayButtonText;
     }
-
-    console.debug(this.playButtonText);
 };
 
 Play.prototype = {
