@@ -39,9 +39,12 @@ var ItsFishy = function () {
     this.killers = null;
     this.combineds = null;
     this.survivors = 0;
+    this.loadOffset = 0;
 
     this.land = null;
     this.level = config.defaultLevel;
+
+    this.easterEggEnabled = false;
 };
 
 ItsFishy.prototype = {
@@ -60,7 +63,9 @@ ItsFishy.prototype = {
 
     reloadBread: function () {
         this.breadCrumbAvailable = Math.random() * 10 > 9 ? BREAD_STATE.SPEEDBREAD : BREAD_STATE.BREAD;
-        this.breadCrumpLoader.animations.play(this.breadCrumbAvailable == BREAD_STATE.BREAD ? 'bread' : 'speedbread');
+        this.breadCrumpLoader.animations.play(
+            this.breadCrumbAvailable == BREAD_STATE.BREAD ? 'bread' : 'speedbread'
+        );
     },
 
     loadBreadCrumbReloader: function () {
@@ -119,31 +124,55 @@ ItsFishy.prototype = {
 
     loadObstacles: function (obstacles) {
         for (var i = 0; i < obstacles.length; i++) {
-            var obstacle = new Obstacle(this.game, obstacles[i].x, obstacles[i].y, obstacles[i].asset);
+            var obstacle = new Obstacle(
+                this.game,
+                obstacles[i].x,
+                obstacles[i].y,
+                obstacles[i].asset
+            );
             this.obstacles.add(obstacle);
         }
     },
 
     loadDeathZones: function (deathZones) {
         for (var i = 0; i < deathZones.length; i++) {
-            var deathZone = new Killer(this.game, deathZones[i].x, deathZones[i].y, deathZones[i].asset);
+            var deathZone = new Killer(
+                this.game,
+                deathZones[i].x,
+                deathZones[i].y,
+                deathZones[i].asset
+            );
             this.killers.add(deathZone);
         }
     },
 
     loadFloaters: function (floaters) {
         for (var i = 0; i < floaters.length; i++) {
-            var floater = new Floater(this.game, floaters[i].x, floaters[i].y, floaters[i].asset);
+            var floater = new Floater(
+                this.game,
+                floaters[i].x,
+                floaters[i].y,
+                floaters[i].asset
+            );
             this.floaters.add(floater);
         }
     },
 
     loadCombined: function(combineds) {
         for(var i = 0; i < combineds.length; i++) {
-            var combinedObstacle = new CombinedObstacle(this.game, combineds[i].obstacle.x, combineds[i].obstacle.y);
+            var combinedObstacle = new CombinedObstacle(
+                this.game,
+                combineds[i].obstacle.x,
+                combineds[i].obstacle.y
+            );
             this.combineds.add(combinedObstacle);
 
-            var combinedKiller = new CombinedKiller(this.game, combineds[i].killer.x, combineds[i].killer.y, combinedObstacle);
+            var combinedKiller = new CombinedKiller(
+                this.game,
+                combineds[i].killer.x,
+                combineds[i].killer.y,
+                combinedObstacle
+            );
             this.combineds.add(combinedKiller);
             combinedKiller.body.onBeginContact.add(function (body) {
                 if (this.fish.getIndex(body.sprite) != -1) {
@@ -166,6 +195,11 @@ ItsFishy.prototype = {
         this.loadPhysics();
 
         this.loadLand();
+
+        if (level.hasOwnProperty('loadOffset')) {
+            this.loadOffset = level.loadOffset;
+            this.game.camera.x = level.loadOffset;
+        }
 
         if (level.hasOwnProperty('obstacles')) {
             this.loadObstacles(level.obstacles);
@@ -218,8 +252,9 @@ ItsFishy.prototype = {
         for (var i = 0; i < level.world.fishAmount; i++) {
             this.fish.add(new Fish(
                 this.game,
-                offset + Math.random() * width,
-                offset + Math.random() * height
+                offset + Math.random() * width + this.loadOffset,
+                offset + Math.random() * height,
+                this.easterEggEnabled ? 'easteregg' : 'fish'
             ));
         }
     },
@@ -260,6 +295,7 @@ ItsFishy.prototype = {
         this.loadFish();
 
         this.game.automata.setOptions(this.automataOptions);
+        this.game.input.keyboard.addCallbacks(this, null, this.toggleEasterEgg, null);
     },
 
     removeBread: function (breadId) {
@@ -298,6 +334,22 @@ ItsFishy.prototype = {
         this.updateFish();
 
         this.game.camera.x += this.cameraSpeed;
+    },
+
+    toggleEasterEgg: function(keyboardEvent) {
+        if (keyboardEvent.keyCode === Phaser.Keyboard.G) {
+            if (this.easterEggEnabled) {
+                this.easterEggEnabled = false;
+                this.fish.forEach(function(fish) {
+                    fish.loadTexture('fish');
+                });
+            } else {
+                this.easterEggEnabled = true;
+                this.fish.forEach(function(fish) {
+                    fish.loadTexture('easteregg');
+                });
+            }
+        }
     },
 
     updateStats: function () {
