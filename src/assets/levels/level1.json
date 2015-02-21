@@ -3,7 +3,8 @@
     "width": 4000,
     "height": 600,
     "cameraSpeed": 1,
-    "gameOverFishAmount": 1
+    "gameOverFishAmount": 1,
+    "fishAmount": 10
   },
   "obstacles": [
 

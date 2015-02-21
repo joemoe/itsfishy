@@ -29,6 +29,7 @@ Preload.prototype = {
         this.game.load.image('combined-killer', 'assets/images/combined-killer.png');
         this.game.load.image('combined-obstacle', 'assets/images/combined-obstacle.png');
         this.game.load.image('background', 'assets/images/water.jpg');
+        this.game.load.image('goal', 'assets/images/goal.png');
 
         // killers
         this.game.load.image('octopus', 'assets/images/octopus.png');
