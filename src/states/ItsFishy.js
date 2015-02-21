@@ -257,7 +257,7 @@ ItsFishy.prototype = {
 
         if (game.input.activePointer.isDown) {
             this.addBread();
-        }   
+        }
 
         this.updateStats();
 
