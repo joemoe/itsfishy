@@ -98,8 +98,10 @@ ItsFishy.prototype = {
     },
 
     loadLevel: function (levelKey) {
-        var level = game.cache.getJSON(levelKey);
+        var level = this.game.cache.getJSON(levelKey);
         this.game.world.setBounds(0, 0, level.world.width, level.world.height);
+
+        this.loadPhysics();
 
         this.loadObstacles(level.obstacles);
         this.loadDeathZones(level.deathZones);
@@ -131,11 +133,11 @@ ItsFishy.prototype = {
 
         this.initializeComponentOptions();
 
-        this.loadPhysics();
+        this.loadLevel('level1');
+
         this.loadInput();
         this.loadBreadCrumbReloader();
 
-        this.loadLevel('level1');
 
         this.loadFish();
 
@@ -204,6 +206,7 @@ ItsFishy.prototype = {
     },
 
     render: function() {
+        this.game.debug.cameraInfo(this.game.camera, 32, 32);
         // this.fish.forEach(function(fish) {
         //     this.game.debug.spriteBounds(fish);
         // }, this);

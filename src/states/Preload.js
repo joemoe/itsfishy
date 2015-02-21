@@ -23,7 +23,7 @@ Preload.prototype = {
         this.game.load.spritesheet('timer', 'assets/images/timer.png', 150, 20);
 
         // load levels
-        this.game.load.json('level1', 'assets/levels/level1.json');
+        this.game.load.json('level1', 'assets/levels/level1.json?' + (new Date().getTime()));
 
         // load physic assets
         /*
