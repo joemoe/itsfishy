@@ -18,6 +18,7 @@ Preload.prototype = {
         this.game.load.image('obstacle', 'assets/images/obstacle.png');
         this.game.load.image('killer', 'assets/images/killer.png');
         this.game.load.image('breadcrumb', 'assets/images/breadcrumb.png');
+        this.game.load.image('land', 'assets/images/land.png');
 
         // load additional assets (like sprites or audaleio streams) here
         this.game.load.spritesheet('timer', 'assets/images/timer.png', 150, 20);

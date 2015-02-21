@@ -21,6 +21,8 @@ var ItsFishy = function () {
 
     this.killers = null;
 
+    this.land = null;
+
     this.textOptions = {
         font: '15px Arial',
         fill: '#ffffff',
@@ -117,22 +119,23 @@ ItsFishy.prototype = {
 
         this.loadPhysics();
 
+        this.loadLand();
         this.loadObstacles(level.obstacles);
         this.loadDeathZones(level.deathZones);
+    },
+
+    loadLand: function() {
+        this.land = this.game.add.sprite(
+            0, 0,
+            'land'
+        );
+        this.land.fixedToCamera = true;
     },
 
     loadFish: function () {
         for (var i = 0; i < 10; i++) {
             this.fish.add(this.lastFish = new Fish(this.game, Math.random() * 600, Math.random() * 400));
         }
-
-        /** demo polygon collision - needs physics assets from Preload.js
-         var collisionSprite = this.game.add.sprite(128, 128, 'check');
-         this.game.physics.p2.enableBody(collisionSprite, true);
-
-         collisionSprite.body.clearShapes();
-         collisionSprite.body.loadPolygon('physicsData', 'check');
-         */
     },
 
     initializeGroups: function () {
@@ -149,7 +152,6 @@ ItsFishy.prototype = {
 
         this.loadLevel('level1');
         this.loadStats();
-        this.loadPhysics();
         this.loadInput();
         this.loadBreadCrumbReloader();
 
@@ -220,13 +222,15 @@ ItsFishy.prototype = {
     },
 
     updateFish: function () {
-        this.fish.forEachAlive(this.applyAutomata, this);
+        this.fish.forEachAlive(this.updateEachFish, this);
         this.game.automata.setSprite(null);
     },
 
-    applyAutomata: function (fish) {
+    updateEachFish: function (fish) {
         this.game.automata.setSprite(fish);
         this.game.automata.update();
+
+        if(fish.body.x < this.game.camera.x + this.land.width) fish.kill();
     },
 
     render: function() {
