@@ -38,10 +38,20 @@ Preload.prototype = {
         this.game.load.image('combined-obstacle', 'assets/images/combined-obstacle.png');
         this.game.load.image('background', 'assets/images/water.jpg');
         this.game.load.image('goal', 'assets/images/goal.png');
+        this.game.load.image('ducks', 'assets/images/ducks.png');
+
 
         // killers
         this.game.load.image('octopus', 'assets/images/octopus.png');
         this.game.load.image('octopus-small', 'assets/images/octopus-small.png');
+        this.game.load.image('piranha', 'assets/images/piranha.png');
+        this.game.load.image('diver', 'assets/images/diver.png');
+        this.game.load.image('boat', 'assets/images/boat.png');
+        this.game.load.image('ducks-evil', 'assets/images/ducks-evil.png');
+
+        // combined
+        this.game.load.image('gate-pole', 'assets/images/pole.png');
+        this.game.load.image('gate-transformator', 'assets/images/transformator.png');
 
         // island freak out
         this.game.load.image('island', 'assets/images/island.png');
@@ -55,6 +65,7 @@ Preload.prototype = {
         this.game.load.image('island-right-top', 'assets/images/island-right-top.png');
         this.game.load.image('island-right-bottom', 'assets/images/island-right-bottom.png');
         this.game.load.image('island-left-top', 'assets/images/island-left-top.png');
+
 
         //floaters
         this.game.load.image('airmattress', 'assets/images/airmattress.png');
