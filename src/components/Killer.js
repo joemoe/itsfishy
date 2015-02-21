@@ -20,7 +20,6 @@ Killer.prototype.constructor = Killer;
  * @param {Phaser.Physics.P2.Body} body
  */
 Killer.prototype.hitDeathZone = function(body) {
-    console.debug('killing!');
     if (body.sprite instanceof Fish) {
         if (body.sprite.isOnSpeed()) {
             this.kill();
@@ -31,6 +30,6 @@ Killer.prototype.hitDeathZone = function(body) {
             body.sprite.kill();
         }
     }
-},
+};
 
 module.exports = Killer;
