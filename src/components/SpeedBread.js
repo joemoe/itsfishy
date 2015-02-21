@@ -15,6 +15,7 @@ var config = require('./Configuration.js');
  */
 var SpeedBread = function(game, x, y, breadCrumbLifespan, speedDuration) {
     Bread.call(this, game, x, y, breadCrumbLifespan, 'speedbreadcrumb');
+    this.breadEatMessage = 'Speedbrot!';
 
     if (typeof speedDuration != 'number') {
         this.speedDuration = config.fishSpeedDuration;

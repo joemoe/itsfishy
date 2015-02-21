@@ -12,8 +12,6 @@ GameWon.prototype = Object.create(Play.prototype);
 GameWon.prototype.constructor = GameWon;
 
 GameWon.prototype.init = function(levelKey, survivors) {
-    Play.prototype.init.call(this, levelKey);
-
     this.survivors = survivors;
 };
 

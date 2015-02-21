@@ -71,6 +71,7 @@ Preload.prototype = {
         // load additional assets (like sprites or audaleio streams) here
         this.game.load.spritesheet('timer', 'assets/images/timer.png', 150, 20);
         this.game.load.spritesheet('fish', 'assets/images/fishright.png', 40, 25);
+        this.game.load.spritesheet('levels', 'assets/images/levels.png', 40, 40);
 
         // load levels
         this.game.load.json('level1', 'assets/levels/level1.json?' + (new Date().getTime()));
