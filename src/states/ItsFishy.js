@@ -4,13 +4,17 @@ var Obstacle = require('../components/Obstacle.js');
 var VisualTimer = require('../components/VisualTimer.js');
 var Fish = require('../components/Fish.js');
 var Killer = require('../components/Killer.js');
+var FlashMessage = require('../components/FlashMessage.js');
 var config = require('../components/Configuration.js');
 
 var ItsFishy = function () {
-    this.breadCrumbSeconds = config.breadCrumbReloadTime;
-    this.breadCrumLifespan = config.breadCrumbLifespan;
+    this.breadCrumbReloadTime = config.breadCrumbDefaultReloadTime;
+    this.breadCrumbLifespan = config.breadCrumbDefaultLifespan;
     this.cameraSpeed = config.defaultCameraSpeed; // pixel per update
+    this.gameOverFishAmount = config.fishDefaultGameOverAmount;
 
+    /** @type {FlashMessage} */
+    this.flashMessage = null;
     /** @type {Phaser.Group} */
     this.fish = null;
     this.obstacles = null;
@@ -23,12 +27,6 @@ var ItsFishy = function () {
     this.killers = null;
 
     this.land = null;
-
-    this.textOptions = {
-        font: '15px Arial',
-        fill: '#ffffff',
-        align: 'center'
-    };
 };
 
 ItsFishy.prototype = {
@@ -49,7 +47,7 @@ ItsFishy.prototype = {
         this.breadcrumbReloader = new VisualTimer(this.visualTimerOptions);
 
         this.game.time.events.loop(
-            Phaser.Timer.SECOND * this.breadCrumbSeconds,
+            Phaser.Timer.SECOND * this.breadCrumbReloadTime,
             this.reloadBread,
             this
         );
@@ -76,7 +74,7 @@ ItsFishy.prototype = {
             x: 650,
             y: 0,
             type: 'up',
-            seconds: this.breadCrumbSeconds,
+            seconds: this.breadCrumbReloadTime,
             onComplete: function () {
                 // called in context of timer, thats ok
                 this.reset();
@@ -90,7 +88,7 @@ ItsFishy.prototype = {
             0,
             0,
             '',
-            this.textOptions
+            config.statsTextStyle
         );
         this.scoreText.fixedToCamera = true;
     },
@@ -121,10 +119,26 @@ ItsFishy.prototype = {
         this.loadPhysics();
 
         this.loadLand();
-        this.loadObstacles(level.obstacles);
-        this.loadDeathZones(level.deathZones);
 
-        this.cameraSpeed = level.world.cameraSpeed;
+        if (level.hasOwnProperty('obstacles')) {
+            this.loadObstacles(level.obstacles);
+        }
+        if (level.hasOwnProperty('deathZones')) {
+            this.loadDeathZones(level.deathZones);
+        }
+
+        if (level.world.hasOwnProperty('cameraSpeed')) {
+            this.cameraSpeed = level.world.cameraSpeed;
+        }
+        if (level.world.hasOwnProperty('gameOverFishAmount')) {
+            this.gameOverFishAmount = level.world.gameOverFishAmount;
+        }
+        if (level.world.hasOwnProperty('breadCrumbLifespan')) {
+            this.breadCrumbLifespan = level.world.breadCrumbLifespan;
+        }
+        if (level.world.hasOwnProperty('breadCrumbReloadTime')) {
+            this.breadCrumbReloadTime = level.world.breadCrumbReloadTime;
+        }
     },
 
     loadLand: function() {
@@ -198,11 +212,15 @@ ItsFishy.prototype = {
             bread.body.onBeginContact.add(function (body) {
                 if (this.fish.getIndex(body.sprite) != -1) {
                     bread.kill();
+                    console.log('new flash message');
+                    this.flashMessage = this.game.add.existing(
+                        new FlashMessage(this.game, 'Awesome!')
+                    );
                 }
             }, this);
 
             this.game.time.events.add(
-                Phaser.Timer.SECOND * this.breadCrumLifespan,
+                Phaser.Timer.SECOND * this.breadCrumbLifespan,
                 this.removeBread,
                 this,
                 bread.id
@@ -227,8 +245,9 @@ ItsFishy.prototype = {
     updateStats: function () {
         var alive = this.fish.countLiving();
         this.scoreText.setText(alive);
-        if (alive === 0) {
-            this.game.state.start('GameOver');
+        if (alive <= this.gameOverFishAmount) {
+            this.game.state.start('GameOver', true, false, this.fish.countLiving());
+            //this.game.state.start('GameWon', true, false, this.fish.countLiving());
         }
     },
 

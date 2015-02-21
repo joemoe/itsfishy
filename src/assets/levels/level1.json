@@ -2,7 +2,8 @@
   "world": {
     "width": 4000,
     "height": 600,
-    "cameraSpeed": 1
+    "cameraSpeed": 1,
+    "gameOverFishAmount": 1
   },
   "obstacles": [
     {
