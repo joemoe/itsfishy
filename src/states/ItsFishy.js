@@ -229,6 +229,7 @@ ItsFishy.prototype = {
     updateEachFish: function (fish) {
         this.game.automata.setSprite(fish);
         this.game.automata.update();
+        fish.body.rotation = Math.atan2(fish.body.velocity.y, fish.body.velocity.x);
 
         if(fish.body.x < this.game.camera.x + this.land.width) fish.kill();
     },
