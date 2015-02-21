@@ -1,6 +1,6 @@
 'use strict';
 
-var config = require('../components/Configuration.js');
+var config = require('./components/Configuration.js');
 
 window.game = new Phaser.Game(config.gameWidth, config.gameHeight, Phaser.AUTO, 'its-fishy');
 
