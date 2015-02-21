@@ -1,6 +1,8 @@
 'use strict';
 
 var Play = require('./Play.js');
+var config = require('../components/Configuration.js');
+
 
 var GameOver = function () {
     Play.call(this);
@@ -11,15 +13,13 @@ GameOver.prototype.constructor = GameOver;
 
 
 GameOver.prototype.create = function () {
-    Play.prototype.create.call(this);
-
-    var gameOverTitle = this.game.add.sprite(
-        this.game.world.centerX,
-        this.game.world.centerY / 2,
-        'gameover'
+    var bg = this.game.add.tileSprite(
+        0, 0, config.gameWidth, config.gameHeight, 'background'
     );
-    gameOverTitle.fixedToCamera = true;
-    gameOverTitle.anchor.setTo(0.5, 0.5);
+    var gameoverscreen = this.game.add.sprite(
+        0, 0, 'gameoverscreen'
+    );
+    Play.prototype.create.call(this);
 };
 
 module.exports = GameOver;

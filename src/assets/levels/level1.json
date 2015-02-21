@@ -1,6 +1,6 @@
 {
   "world": {
-    "width": 4000,
+    "width": 1600,
     "height": 600,
     "cameraSpeed": 1,
     "gameOverFishAmount": 1,
