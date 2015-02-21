@@ -5,6 +5,7 @@ var configuration = {
     gameHeight: 600,
 
     fishRandomCreateBorder: 50,
+    fishSpeedDuration: 2,
 
     flashMessageBlinkTime: 0.2,
     flashMessageRepeatCount: 6,
