@@ -26,8 +26,8 @@ Play.prototype = {
         this.game.world.setBounds(0, 0, config.gameWidth, config.gameHeight);
 
         this.playText = this.game.add.text(
-            this.game.world.centerX,
-            this.game.world.centerY,
+            700,
+            350,
             this.playButtonText,
             config.playButtonTextStyle
         );

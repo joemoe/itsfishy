@@ -14,6 +14,9 @@ Preload.prototype = {
 
         this.load.setPreloadSprite(loadingBar);
 
+        //
+        this.game.load.image('startscreen', 'assets/images/startscreen.png');
+
         // load images and unconfigured assets here
         this.game.load.image('fish', 'assets/images/fishright.png');
         this.game.load.image('speedfish', 'assets/images/speedfishright.png');
