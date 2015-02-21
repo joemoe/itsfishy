@@ -34,11 +34,17 @@ var ItsFishy = function () {
     this.breadcrumbs = null;
     this.killers = null;
     this.combineds = null;
+    this.survivors = 0;
 
     this.land = null;
+    this.level = config.defaultLevel;
 };
 
 ItsFishy.prototype = {
+
+    init: function(level) {
+        this.level = level;
+    },
 
     loadPhysics: function () {
         this.game.physics.startSystem(Phaser.Physics.P2JS);
@@ -144,8 +150,8 @@ ItsFishy.prototype = {
         }
     },
 
-    loadLevel: function (levelKey) {
-        var level = this.game.cache.getJSON(levelKey);
+    loadLevel: function () {
+        var level = this.game.cache.getJSON(this.level);
         this.game.world.setBounds(0, 0, level.world.width, level.world.height);
 
         this.loadPhysics();
@@ -186,14 +192,21 @@ ItsFishy.prototype = {
             'land'
         );
         this.land.fixedToCamera = true;
+        var level = this.game.cache.getJSON(this.level);
+        this.goal = this.game.add.sprite(
+            level.world.width - 80,
+            0,
+            'goal'
+        );
     },
 
     loadFish: function () {
         var offset = config.fishRandomCreateBorder;
         var width = config.gameWidth - config.fishRandomCreateBorder * 2;
         var height = config.gameHeight - config.fishRandomCreateBorder * 2;
+        var level = this.game.cache.getJSON(this.level);
 
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < level.world.fishAmount; i++) {
             this.fish.add(new Fish(
                 this.game,
                 offset + Math.random() * width,
@@ -203,7 +216,14 @@ ItsFishy.prototype = {
     },
 
     initializeGame: function() {
-        this.background = this.game.add.tileSprite(0, 0, 4000, 600, 'background');
+        var level = this.game.cache.getJSON(this.level);
+        this.background = this.game.add.tileSprite(
+            0,
+            0,
+            level.world.width,
+            level.world.height,
+            'background'
+        );
     },
 
     initializeGroups: function () {
@@ -222,7 +242,7 @@ ItsFishy.prototype = {
         this.initializeComponentOptions();
 
 
-        this.loadLevel('level1');
+        this.loadLevel();
         this.loadStats();
         this.loadInput();
         this.loadBreadCrumbReloader();
@@ -275,8 +295,10 @@ ItsFishy.prototype = {
         var alive = this.fish.countLiving();
         this.scoreText.setText(alive);
         if (alive <= this.gameOverFishAmount) {
+            if (this.survivors > 0) {
+                return this.game.state.start('GameWon', true, false, this.survivers);
+            }
             this.game.state.start('GameOver', true, false, this.fish.countLiving());
-            //this.game.state.start('GameWon', true, false, this.fish.countLiving());
         }
     },
 
@@ -289,8 +311,15 @@ ItsFishy.prototype = {
         this.game.automata.setSprite(fish);
         this.game.automata.update();
         fish.body.rotation = Math.atan2(fish.body.velocity.y, fish.body.velocity.x);
+        var level = this.game.cache.getJSON(this.level);
 
-        if(fish.body.x < this.game.camera.x + this.land.width) fish.kill();
+        if (fish.body.x < this.game.camera.x + this.land.width) {
+            fish.kill();
+        }
+        if (fish.body.x > level.world.width - this.goal.width) {
+            this.survivors++;
+            fish.kill();
+        }
     },
 
     render: function() {

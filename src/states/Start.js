@@ -16,7 +16,7 @@ Start.prototype = {
     },
 
     playItsFishy: function () {
-        this.game.state.start('ItsFishy');
+        this.game.state.start('ItsFishy', true, false, 'level1');
     }
 };
 
