@@ -11,7 +11,7 @@ GameOver.prototype = {
 
         var gameOverTitle = this.game.add.sprite(
             this.game.world.centerX,
-            160,
+            this.game.world.centerY / 2,
             'gameover'
         );
         gameOverTitle.fixedToCamera = true;
@@ -19,7 +19,7 @@ GameOver.prototype = {
 
         var playButton = this.game.add.button(
             this.game.world.centerX,
-            320,
+            this.game.world.centerY,
             'play',
             this.playItsFishy,
             this

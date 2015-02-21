@@ -5,7 +5,11 @@ var Preload = function (game) {
 
 Preload.prototype = {
     preload: function () {
-        var loadingBar = this.add.sprite(160, 240, 'loading');
+        var loadingBar = this.add.sprite(
+            this.game.world.centerX,
+            this.game.world.centerY,
+            'loading'
+        );
         loadingBar.anchor.setTo(0.5, 0.5);
 
         this.load.setPreloadSprite(loadingBar);
@@ -64,7 +68,7 @@ Preload.prototype = {
     },
 
     create: function () {
-        this.game.state.start('ItsFishy');
+        this.game.state.start('Start');
     }
 };
 

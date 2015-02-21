@@ -16,7 +16,7 @@ GameWon.prototype = {
 
         var gameWonTitle = this.game.add.sprite(
             this.game.world.centerX,
-            160,
+            this.game.world.centerY / 2,
             'gamewon'
         );
         gameWonTitle.fixedToCamera = true;
@@ -24,7 +24,7 @@ GameWon.prototype = {
 
         var playButton = this.game.add.button(
             this.game.world.centerX,
-            320,
+            this.game.world.centerY,
             'play',
             this.playItsFishy,
             this
@@ -33,7 +33,7 @@ GameWon.prototype = {
 
         var surviversText = this.game.add.text(
             this.game.world.centerX,
-            400,
+            this.game.world.centerY * 1.5,
             'Survivers: ' + this.survivers,
             config.gameWonTextStyle
         );
