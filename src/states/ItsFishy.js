@@ -10,6 +10,11 @@ var CombinedObstacle = require('../components/CombinedObstacle.js');
 var Floater = require('../components/Floater.js');
 var config = require('../components/Configuration.js');
 
+var levels = {
+    level2: require('../levels/level2.js'),
+    level3: require('../levels/level3.js')
+}
+
 var BREAD_STATE = {
     EMPTY: 1,
     BREAD: 2,
@@ -149,8 +154,13 @@ ItsFishy.prototype = {
         }
     },
 
+    getLevel: function() {
+        if(levels[this.level]) return levels[this.level];
+        return this.game.cache.getJSON(this.level);
+    },
+
     loadLevel: function () {
-        var level = this.game.cache.getJSON(this.level);
+        var level = this.getLevel();
         this.game.world.setBounds(0, 0, level.world.width, level.world.height);
 
         this.loadPhysics();
@@ -191,7 +201,7 @@ ItsFishy.prototype = {
             'land'
         );
         this.land.fixedToCamera = true;
-        var level = this.game.cache.getJSON(this.level);
+        var level = this.getLevel();
         this.goal = this.game.add.sprite(
             level.world.width - 80,
             0,
@@ -203,7 +213,7 @@ ItsFishy.prototype = {
         var offset = config.fishRandomCreateBorder;
         var width = config.gameWidth - config.fishRandomCreateBorder * 2;
         var height = config.gameHeight - config.fishRandomCreateBorder * 2;
-        var level = this.game.cache.getJSON(this.level);
+        var level = this.getLevel();
 
         for (var i = 0; i < level.world.fishAmount; i++) {
             this.fish.add(new Fish(
@@ -215,7 +225,7 @@ ItsFishy.prototype = {
     },
 
     initializeGame: function() {
-        var level = this.game.cache.getJSON(this.level);
+        var level = this.getLevel();
         this.background = this.game.add.tileSprite(
             0,
             0,
@@ -334,7 +344,7 @@ ItsFishy.prototype = {
             return;
         }
 
-        var level = this.game.cache.getJSON(this.level);
+        var level = this.getLevel();
         if (fish.body.x > level.world.width - this.goal.width) {
             this.survivors++;
             fish.kill('win');

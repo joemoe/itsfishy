@@ -8,20 +8,20 @@
   },
   "obstacles": [
 
-//SQUARE ISLAND SIDE BOTTOM
+//SQUARE ISLAND SIDE BOTTOM 100 x 100
     { "x": 600, "y": 525, "asset": "island-left-top" },
     { "x": 650, "y": 525, "asset": "island-right-top" },
     { "x": 600, "y": 575, "asset": "island-left" },
     { "x": 650, "y": 575, "asset": "island-right" },
 
 
-//SQUARE ISLAND MIDDLE
+//SQUARE ISLAND MIDDLE 100 x 100
     { "x": 800, "y": 200, "asset": "island-left-top" },
     { "x": 850, "y": 200, "asset": "island-right-top" },
     { "x": 800, "y": 250, "asset": "island-left-bottom" },
     { "x": 850, "y": 250, "asset": "island-right-bottom" },
 
-//LONG ISLAND HORIZONTAL
+//LONG ISLAND HORIZONTAL 200 x 100
     { "x": 800, "y": 200, "asset": "island-left-top" },
     { "x": 800, "y": 250, "asset": "island-left-bottom" },
     { "x": 850, "y": 200, "asset": "island-top" },
@@ -29,7 +29,7 @@
     { "x": 900, "y": 200, "asset": "island-right-top" },
     { "x": 900, "y": 250, "asset": "island-right-bottom" },
 
-//LONG ISLAND VERTICAL
+//LONG ISLAND VERTICAL 100 x 200
     { "x": 800, "y": 200, "asset": "island-left-top" },
     { "x": 800, "y": 250, "asset": "island-left-top" },
     { "x": 800, "y": 300, "asset": "island-left" },
@@ -41,7 +41,7 @@
 
   ],
   "deathZones": [
-// OCTOPUS SMALL
+// OCTOPUS SMALL 150 x 150
     { "x": 1500, "y": 150, "asset": "octopus-small"},
 // OCTOPUS 
     { "x": 2200, "y": 400, "asset": "octopus"}
@@ -55,6 +55,8 @@
   ],
   "floaters": [
 // MATRAZE 480 x 170
-    { "x": 1000, "y": 400, "asset": "airmattress" }
+    { "x": 1000, "y": 400, "asset": "airmattress" },
+// DUCKS 241 x 78
+    { "x": 1400, "y": 400, "asset": "ducks"}
   ]
 }

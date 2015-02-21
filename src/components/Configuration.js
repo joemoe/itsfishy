@@ -4,7 +4,7 @@ var configuration = {
     gameWidth: 800,
     gameHeight: 600,
 
-    defaultLevel: 'level1',
+    defaultLevel: 'level3',
 
     fishRandomCreateBorder: 50,
     fishSpeedDuration: 2,

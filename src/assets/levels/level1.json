@@ -1,18 +1,74 @@
 {
   "world": {
-    "width": 1600,
+    "width": 5300,
     "height": 600,
     "cameraSpeed": 1,
     "gameOverFishAmount": 1,
     "fishAmount": 20
   },
+  "loadOffset": 0,
   "obstacles": [
+    { "x": 1700, "y": 475, "asset": "island-left-top" },
+    { "x": 1700, "y": 525, "asset": "island-left" },
+    { "x": 1700, "y": 575, "asset": "island-left" },
+    { "x": 1750, "y": 475, "asset": "island-right-top" },
+    { "x": 1750, "y": 525, "asset": "island-right" },
+    { "x": 1750, "y": 575, "asset": "island-right" },
+
+    { "x": 2500, "y": 150, "asset": "island-left-top" },
+    { "x": 2500, "y": 200, "asset": "island-left" },
+    { "x": 2500, "y": 250, "asset": "island-left" },
+    { "x": 2500, "y": 300, "asset": "island-left-bottom" },
+    { "x": 2550, "y": 150, "asset": "island-right-top" },
+    { "x": 2550, "y": 200, "asset": "island-right" },
+    { "x": 2550, "y": 250, "asset": "island-right" },
+    { "x": 2550, "y": 300, "asset": "island-right-bottom" },
+
+    { "x": 2800, "y": 400, "asset": "island-left-top" },
+    { "x": 2800, "y": 450, "asset": "island-left-bottom" },
+    { "x": 2850, "y": 400, "asset": "island-top" },
+    { "x": 2850, "y": 450, "asset": "island-bottom" },
+    { "x": 2900, "y": 400, "asset": "island-right-top" },
+    { "x": 2900, "y": 450, "asset": "island-right-bottom" },
+
+    { "x": 3600, "y": 100, "asset": "island-left-top" },
+    { "x": 3600, "y": 150, "asset": "island-left" },
+    { "x": 3600, "y": 200, "asset": "island-left" },
+    { "x": 3600, "y": 250, "asset": "island-left-bottom" },
+    { "x": 3650, "y": 100, "asset": "island-right-top" },
+    { "x": 3650, "y": 150, "asset": "island-right" },
+    { "x": 3650, "y": 200, "asset": "island-right" },
+    { "x": 3650, "y": 250, "asset": "island-right-bottom" },
+
+    { "x": 3800, "y": 400, "asset": "island-left-top" },
+    { "x": 3800, "y": 450, "asset": "island-left-bottom" },
+    { "x": 3850, "y": 400, "asset": "island-top" },
+    { "x": 3850, "y": 450, "asset": "island-bottom" },
+    { "x": 3900, "y": 400, "asset": "island-top" },
+    { "x": 3900, "y": 450, "asset": "island-bottom" },
+    { "x": 3950, "y": 400, "asset": "island-right-top" },
+    { "x": 3950, "y": 450, "asset": "island-right-bottom" },
+
+    { "x": 4400, "y": 475, "asset": "island-left-top" },
+    { "x": 4400, "y": 525, "asset": "island-left" },
+    { "x": 4400, "y": 575, "asset": "island-left" },
+    { "x": 4450, "y": 475, "asset": "island-right-top" },
+    { "x": 4450, "y": 525, "asset": "island-right" },
+    { "x": 4450, "y": 575, "asset": "island-right" }
 
   ],
   "deathZones": [
+    { "x": 3300, "y": 300, "asset": "octopus-small"},
+    { "x": 4050, "y": 200, "asset": "octopus-small"},
+    { "x": 4600, "y": 250, "asset": "octopus-small"}
   ],
   "floaters": [
+    { "x": 600, "y": 70, "asset": "ducks" },
     { "x": 800, "y": 400, "asset": "airmattress" },
-    { "x": 1200, "y": 110, "asset": "airmattress" }
+    { "x": 1200, "y": 110, "asset": "airmattress" },
+    { "x": 1900, "y": 300, "asset": "airmattress" },
+    { "x": 3000, "y": 400, "asset": "ducks" },
+    { "x": 4700, "y": 400, "asset": "airmattress" },
+    { "x": 4900, "y": 100, "asset": "ducks" }
   ]
 }
