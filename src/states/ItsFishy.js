@@ -1,7 +1,6 @@
 'use strict';
 
 var Obstacle = require('../components/Obstacle.js');
-var VisualTimer = require('../components/VisualTimer.js');
 var Fish = require('../components/Fish.js');
 var Killer = require('../components/Killer.js');
 var Bread = require('../components/Bread.js');

@@ -18,7 +18,6 @@ Preload.prototype = {
         this.game.load.image('startscreen', 'assets/images/startscreen.png');
 
         // load images and unconfigured assets here
-        this.game.load.image('fish', 'assets/images/fishright.png');
         this.game.load.image('speedfish', 'assets/images/speedfishright.png');
         this.game.load.image('gameover', 'assets/images/gameover.png');
         this.game.load.image('gamewon', 'assets/images/gamewon.png');
@@ -59,6 +58,7 @@ Preload.prototype = {
 
         // load additional assets (like sprites or audaleio streams) here
         this.game.load.spritesheet('timer', 'assets/images/timer.png', 150, 20);
+        this.game.load.spritesheet('fish', 'assets/images/fishright.png', 80, 50);
 
         // load levels
         this.game.load.json('level1', 'assets/levels/level1.json?' + (new Date().getTime()));

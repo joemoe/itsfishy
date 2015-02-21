@@ -8,6 +8,7 @@ var configuration = {
 
     fishRandomCreateBorder: 50,
     fishSpeedDuration: 2,
+    fishExplosionDuration: 0.3,
 
     defaultPlayButtonText: 'play',
 
