@@ -4,7 +4,12 @@ var Obstacle = require('../components/Obstacle.js');
 var VisualTimer = require('../components/VisualTimer.js');
 var Fish = require('../components/Fish.js');
 var Killer = require('../components/Killer.js');
+<<<<<<< HEAD
 var FlashMessage = require('../components/FlashMessage.js');
+=======
+var CombinedKiller = require('../components/CombinedKiller.js');
+var CombinedObstacle = require('../components/CombinedObstacle.js');
+>>>>>>> combined
 var config = require('../components/Configuration.js');
 
 var ItsFishy = function () {
@@ -23,10 +28,21 @@ var ItsFishy = function () {
     this.breadcrumbReloader = null;
     /** @type {Phaser.Group} */
     this.breadcrumbs = null;
-
     this.killers = null;
+    this.combineds = null;
 
     this.land = null;
+<<<<<<< HEAD
+=======
+
+
+
+    this.textOptions = {
+        font: '15px Arial',
+        fill: '#ffffff',
+        align: 'center'
+    };
+>>>>>>> combined
 };
 
 ItsFishy.prototype = {
@@ -112,6 +128,22 @@ ItsFishy.prototype = {
         }
     },
 
+    loadCombined: function(combineds) {
+        for(var i = 0; i < combineds.length; i++) {
+            var combinedObstacle = new CombinedObstacle(this.game, combineds[i].obstacle.x, combineds[i].obstacle.y);
+            this.combineds.add(combinedObstacle);
+
+            var combinedKiller = new CombinedKiller(this.game, combineds[i].killer.x, combineds[i].killer.y, combinedObstacle);
+            this.combineds.add(combinedKiller);
+            combinedKiller.body.onBeginContact.add(function (body) {
+                if (this.fish.getIndex(body.sprite) != -1) {
+                    combinedKiller.fishDetonation(body.sprite);
+                }
+            }, this);
+
+        }
+    },
+
     loadLevel: function (levelKey) {
         var level = this.game.cache.getJSON(levelKey);
         this.game.world.setBounds(0, 0, level.world.width, level.world.height);
@@ -125,6 +157,9 @@ ItsFishy.prototype = {
         }
         if (level.hasOwnProperty('deathZones')) {
             this.loadDeathZones(level.deathZones);
+        }
+        if(level.hasOwnProperty('combined')) {
+            this.loadCombined(level.combined);
         }
 
         if (level.world.hasOwnProperty('cameraSpeed')) {
@@ -168,6 +203,7 @@ ItsFishy.prototype = {
         this.fish = this.game.add.group();
         this.breadcrumbs = this.game.add.group();
         this.killers = this.game.add.group();
+        this.combineds = this.game.add.group();
     },
 
     create: function () {
