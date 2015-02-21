@@ -107,7 +107,7 @@ ItsFishy.prototype = {
 
     loadDeathZones: function (deathZones) {
         for (var i = 0; i < deathZones.length; i++) {
-            var deathZone = new Killer(this.game, deathZones[i].x, deathZones[i].y);
+            var deathZone = new Killer(this.game, deathZones[i].x, deathZones[i].y, deathZones[i].asset);
             deathZone.body.onBeginContact.add(function (body) {
                 if (this.fish.getIndex(body.sprite) != -1) {
                     body.sprite.kill();

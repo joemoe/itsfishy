@@ -24,6 +24,10 @@ Preload.prototype = {
         this.game.load.image('combined-obstacle', 'assets/images/combined-obstacle.png');
         this.game.load.image('background', 'assets/images/water.jpg');
 
+        // killers
+        this.game.load.image('octopus', 'assets/images/octopus.png');
+        this.game.load.image('octopus-small', 'assets/images/octopus-small.png');
+
         // island freak out
         this.game.load.image('island', 'assets/images/island.png');
         this.game.load.image('island-bottom', 'assets/images/island-bottom.png');

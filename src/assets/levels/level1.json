@@ -20,6 +20,8 @@
 
   ],
   "deathZones": [
+    { "x": 1500, "y": 150, "asset": "octopus-small"},
+    { "x": 2200, "y": 400, "asset": "octopus"}
   ],
   "combined": [
   ],

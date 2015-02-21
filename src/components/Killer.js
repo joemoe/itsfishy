@@ -1,7 +1,7 @@
 'use strict';
 
-var Killer = function(game, x, y) {
-	Phaser.Sprite.call(this, game, x, y, 'killer');
+var Killer = function(game, x, y, asset) {
+	Phaser.Sprite.call(this, game, x, y, asset);
 	this.game.physics.p2.enable(this);
 
 	this.body.static = true;
