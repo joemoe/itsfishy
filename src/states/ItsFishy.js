@@ -4,12 +4,9 @@ var Obstacle = require('../components/Obstacle.js');
 var VisualTimer = require('../components/VisualTimer.js');
 var Fish = require('../components/Fish.js');
 var Killer = require('../components/Killer.js');
-<<<<<<< HEAD
 var FlashMessage = require('../components/FlashMessage.js');
-=======
 var CombinedKiller = require('../components/CombinedKiller.js');
 var CombinedObstacle = require('../components/CombinedObstacle.js');
->>>>>>> combined
 var config = require('../components/Configuration.js');
 
 var ItsFishy = function () {
@@ -32,17 +29,6 @@ var ItsFishy = function () {
     this.combineds = null;
 
     this.land = null;
-<<<<<<< HEAD
-=======
-
-
-
-    this.textOptions = {
-        font: '15px Arial',
-        fill: '#ffffff',
-        align: 'center'
-    };
->>>>>>> combined
 };
 
 ItsFishy.prototype = {
