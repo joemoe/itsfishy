@@ -10,8 +10,6 @@ var configuration = {
     fishSpeedDuration: 2,
     fishExplosionDuration: 0.3,
 
-    defaultPlayButtonText: 'play',
-
     flashMessageBlinkTime: 0.2,
     flashMessageRepeatCount: 6,
     flashMessageTop: 140,
@@ -40,9 +38,9 @@ var configuration = {
         align: 'center'
     },
 
-    playButtonTextStyle: {
+    levelTextStyle: {
         font: '20px Comic Sans MS',
-        fill: '#ff00ff',
+        fill: '#ae35b9',
         align: 'center'
     }
 };
