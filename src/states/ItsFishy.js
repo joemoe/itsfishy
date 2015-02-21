@@ -4,12 +4,13 @@ var Obstacle = require('../components/Obstacle.js');
 var VisualTimer = require('../components/VisualTimer.js');
 var Fish = require('../components/Fish.js');
 var Killer = require('../components/Killer.js');
+var config = require('../components/Configuration.js');
 
 var ItsFishy = function () {
-    this.score = 0;
-    this.breadCrumbSeconds = 3;
-    this.breadCrumLifespan = 5;
-    this.cameraSpeed = 1; // pixel per update
+    this.breadCrumbSeconds = config.breadCrumbReloadTime;
+    this.breadCrumLifespan = config.breadCrumbLifespan;
+    this.cameraSpeed = config.defaultCameraSpeed; // pixel per update
+
     /** @type {Phaser.Group} */
     this.fish = null;
     this.obstacles = null;
@@ -122,6 +123,8 @@ ItsFishy.prototype = {
         this.loadLand();
         this.loadObstacles(level.obstacles);
         this.loadDeathZones(level.deathZones);
+
+        this.cameraSpeed = level.world.cameraSpeed;
     },
 
     loadLand: function() {
@@ -133,8 +136,16 @@ ItsFishy.prototype = {
     },
 
     loadFish: function () {
+        var offset = config.fishRandomCreateBorder;
+        var width = config.gameWidth - config.fishRandomCreateBorder * 2;
+        var height = config.gameHeight - config.fishRandomCreateBorder * 2;
+
         for (var i = 0; i < 10; i++) {
-            this.fish.add(this.lastFish = new Fish(this.game, Math.random() * 600, Math.random() * 400));
+            this.fish.add(new Fish(
+                this.game,
+                offset + Math.random() * width,
+                offset + Math.random() * height
+            ));
         }
     },
 
