@@ -301,7 +301,7 @@ ItsFishy.prototype = {
                     true,
                     false,
                     undefined,
-                    this.survivors + this.fish.countLiving()
+                    this.survivors + (this.fish.countLiving() * 1)
                 );
             }
 
@@ -324,14 +324,20 @@ ItsFishy.prototype = {
         this.game.automata.setSprite(fish);
         this.game.automata.update();
         fish.body.rotation = Math.atan2(fish.body.velocity.y, fish.body.velocity.x);
-        var level = this.game.cache.getJSON(this.level);
+
+        if (fish.animations.currentAnim.name != 'normal') {
+            return;
+        }
 
         if (fish.body.x < this.game.camera.x + this.land.width) {
             fish.kill();
+            return;
         }
+
+        var level = this.game.cache.getJSON(this.level);
         if (fish.body.x > level.world.width - this.goal.width) {
             this.survivors++;
-            fish.kill();
+            fish.kill('win');
         }
     },
 

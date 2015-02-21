@@ -4,7 +4,7 @@
     "height": 600,
     "cameraSpeed": 1,
     "gameOverFishAmount": 1,
-    "fishAmount": 10
+    "fishAmount": 20
   },
   "obstacles": [
 
