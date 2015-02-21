@@ -23,15 +23,14 @@ GameWon.prototype.init = function(levelKey, survivers) {
 };
 
 GameWon.prototype.create = function () {
-    Play.prototype.create.call(this);
-
-    var gameWonTitle = this.game.add.sprite(
-        this.game.world.centerX,
-        this.game.world.centerY / 2,
-        'gamewon'
+    var bg = this.game.add.tileSprite(
+        0, 0, config.gameWidth, config.gameHeight, 'background'
     );
-    gameWonTitle.fixedToCamera = true;
-    gameWonTitle.anchor.setTo(0.5, 0.5);
+
+    var youwonscreen = this.game.add.sprite(
+        0, 0, 'youwonscreen'
+    );
+    Play.prototype.create.call(this);
 
     var surviversText = this.game.add.text(
         this.game.world.centerX,
