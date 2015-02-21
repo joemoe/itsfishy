@@ -13,6 +13,7 @@ Preload.prototype = {
         // load images and unconfigured assets here
         this.game.load.image('fish', 'assets/images/fishright.png');
         this.game.load.image('gameover', 'assets/images/gameover.png');
+        this.game.load.image('gamewon', 'assets/images/gamewon.png');
         this.game.load.image('loading', 'assets/images/loading.png');
         this.game.load.image('play', 'assets/images/play.png');
         this.game.load.image('obstacle', 'assets/images/obstacle.png');
