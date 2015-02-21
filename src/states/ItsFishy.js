@@ -21,7 +21,11 @@ var ItsFishy = function () {
 
     this.killers = null;
 
-    this.lastFish = null;
+    this.textOptions = {
+        font: '15px Arial',
+        fill: '#ffffff',
+        align: 'center'
+    };
 };
 
 ItsFishy.prototype = {
@@ -70,12 +74,22 @@ ItsFishy.prototype = {
             y: 0,
             type: 'up',
             seconds: this.breadCrumbSeconds,
-            onComplete: function() {
+            onComplete: function () {
                 // called in context of timer, thats ok
                 this.reset();
                 this.start();
             }
         };
+    },
+
+    loadStats: function () {
+        this.scoreText = this.game.add.text(
+            0,
+            0,
+            '',
+            this.textOptions
+        );
+        this.scoreText.fixedToCamera = true;
     },
 
     loadObstacles: function (obstacles) {
@@ -88,7 +102,7 @@ ItsFishy.prototype = {
     loadDeathZones: function (deathZones) {
         for (var i = 0; i < deathZones.length; i++) {
             var deathZone = new Killer(this.game, deathZones[i].x, deathZones[i].y);
-            deathZone.body.onBeginContact.add(function(body) {
+            deathZone.body.onBeginContact.add(function (body) {
                 if (this.fish.getIndex(body.sprite) != -1) {
                     body.sprite.kill();
                 }
@@ -126,11 +140,12 @@ ItsFishy.prototype = {
         this.killers = this.game.add.group();
     },
 
-    create: function() {
+    create: function () {
         this.initializeGroups();
 
         this.initializeComponentOptions();
 
+        this.loadStats();
         this.loadPhysics();
         this.loadInput();
         this.loadBreadCrumbReloader();
@@ -165,8 +180,8 @@ ItsFishy.prototype = {
             this.game.physics.p2.enable(bread);
             bread.body.static = true;
 
-            bread.body.onBeginContact.add(function(body) {
-                if(this.fish.getIndex(body.sprite) != -1) {
+            bread.body.onBeginContact.add(function (body) {
+                if (this.fish.getIndex(body.sprite) != -1) {
                     bread.kill();
                 }
             }, this);
@@ -181,29 +196,38 @@ ItsFishy.prototype = {
         }
     },
 
-    update: function() {
-        var alive = 0;
-        this.fish.forEach(function(fish) {
-            if (!fish.alive) {
-                return;
-            }
-            this.game.automata.setSprite(fish);
-            this.game.automata.update();
-            alive++;
-        }, this);
+    update: function () {
 
         if (game.input.activePointer.isDown) {
             this.addBread();
         }
 
-        if (alive === 0) {
-            this.game.state.start('GameOver', this.score);
-        }
+        this.updateStats();
+
+        this.updateFish();
 
         this.game.camera.x += this.cameraSpeed;
     },
 
-    render: function() {
+    updateStats: function () {
+        var alive = this.fish.countLiving();
+        this.scoreText.setText(alive);
+        if (alive === 0) {
+            this.game.state.start('GameOver');
+        }
+    },
+
+    updateFish: function () {
+        this.fish.forEachAlive(this.applyAutomata, this);
+        this.game.automata.setSprite(null);
+    },
+
+    applyAutomata: function (fish) {
+        this.game.automata.setSprite(fish);
+        this.game.automata.update();
+    },
+
+    render: function () {
         // this.fish.forEach(function(fish) {
         //     this.game.debug.spriteBounds(fish);
         // }, this);
