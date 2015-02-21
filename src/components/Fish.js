@@ -25,4 +25,8 @@ Fish.prototype.setToNormal = function() {
     this.loadTexture('fish');
 };
 
+Fish.prototype.isOnSpeed = function() {
+    return this.onSpeedBread;
+};
+
 module.exports = Fish;
