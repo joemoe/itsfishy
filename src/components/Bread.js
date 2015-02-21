@@ -17,6 +17,8 @@ var Fish = require('./Fish.js');
 var Bread = function(game, x, y, breadCrumbLifespan, asset) {
     this.breadCrumbLifespan = breadCrumbLifespan || config.breadCrumbDefaultLifespan;
 
+    this.breadEatMessage = 'Awesome!';
+
     if (typeof x === 'undefined') {
         x = game.input.x + game.camera.x;
     }
@@ -57,7 +59,7 @@ Bread.prototype.contact = function (body) {
         this.game.time.events.remove(this.timerEvent);
         this.kill();
         this.game.add.existing(
-            new FlashMessage(this.game, 'Awesome!')
+            new FlashMessage(this.game, this.breadEatMessage)
         );
     }
 };

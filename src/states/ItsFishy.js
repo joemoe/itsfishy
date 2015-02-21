@@ -13,7 +13,7 @@ var config = require('../components/Configuration.js');
 var levels = {
     level2: require('../levels/level2.js'),
     level3: require('../levels/level3.js')
-}
+};
 
 var BREAD_STATE = {
     EMPTY: 1,
@@ -403,6 +403,7 @@ ItsFishy.prototype = {
         }
     },
 
+    /*
     render: function() {
         this.game.debug.cameraInfo(this.game.camera, 32, 32);
         // this.fish.forEach(function(fish) {
@@ -412,6 +413,7 @@ ItsFishy.prototype = {
         //     this.game.debug.spriteBounds(fish);
         // }, this);
     },
+    */
 
     dump: function(key) {
         if (typeof this[key] === 'undefined') {
