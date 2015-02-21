@@ -4,7 +4,8 @@ var Obstacle = require('../components/Obstacle.js');
 var VisualTimer = require('../components/VisualTimer.js');
 var Fish = require('../components/Fish.js');
 var Killer = require('../components/Killer.js');
-var FlashMessage = require('../components/FlashMessage.js');
+var Bread = require('../components/Bread.js');
+var SpeedBread = require('../components/SpeedBread.js');
 var CombinedKiller = require('../components/CombinedKiller.js');
 var CombinedObstacle = require('../components/CombinedObstacle.js');
 var Floater = require('../components/Floater.js');
@@ -12,14 +13,11 @@ var config = require('../components/Configuration.js');
 
 var ItsFishy = function () {
     this.breadCrumbReloadTime = config.breadCrumbDefaultReloadTime;
-    this.breadCrumbLifespan = config.breadCrumbDefaultLifespan;
     this.cameraSpeed = config.defaultCameraSpeed; // pixel per update
     this.gameOverFishAmount = config.fishDefaultGameOverAmount;
 
     this.background;
 
-    /** @type {FlashMessage} */
-    this.flashMessage = null;
     /** @type {Phaser.Group} */
     this.fish = null;
     this.obstacles = null;
@@ -241,34 +239,17 @@ ItsFishy.prototype = {
 
             this.breadCrumbAvailable = false;
 
-            var bread = this.breadcrumbs.create(
-                this.game.input.x + this.game.camera.x,
-                this.game.input.y + this.game.camera.y,
-                'breadcrumb'
-            );
-            bread.id = Math.random();
+            var bread;
 
+            if (game.input.keyboard.isDown(
+                    Phaser.Keyboard.SPACEBAR
+                )) {
+                bread = new SpeedBread(this.game);
+            } else {
+                bread = new Bread(this.game);
+            }
 
-            this.game.physics.p2.enable(bread);
-            bread.body.static = true;
-
-            bread.body.onBeginContact.add(function (body) {
-                if (this.fish.getIndex(body.sprite) != -1) {
-                    bread.kill();
-                    console.log('new flash message');
-                    this.flashMessage = this.game.add.existing(
-                        new FlashMessage(this.game, 'Awesome!')
-                    );
-                }
-            }, this);
-
-            this.game.time.events.add(
-                Phaser.Timer.SECOND * this.breadCrumbLifespan,
-                this.removeBread,
-                this,
-                bread.id
-            );
-
+            this.breadcrumbs.add(bread);
         }
     },
 
