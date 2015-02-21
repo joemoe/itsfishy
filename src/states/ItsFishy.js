@@ -296,15 +296,23 @@ ItsFishy.prototype = {
         this.scoreText.setText(alive);
         if (alive <= this.gameOverFishAmount) {
             if (this.survivors > 0) {
+
                 return this.game.state.start(
                     'GameWon',
                     true,
                     false,
                     undefined,
-                    this.survivers
+                    this.survivors + this.fish.countLiving()
                 );
             }
-            this.game.state.start('GameOver', true, false, this.fish.countLiving());
+
+            this.game.state.start(
+                'GameOver',
+                true,
+                false,
+                undefined,
+                this.fish.countLiving()
+            );
         }
     },
 
