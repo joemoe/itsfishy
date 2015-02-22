@@ -52,7 +52,7 @@ var level2 = {
  		this.addDeathZone(x, 100, 'octopus-small');
 
 
- 		this.loadOffset = x - 1000;
+ 		// this.loadOffset = x - 1000;
 
  		this.world.width = x + 800;
  	}, addObstacle: function(x, y, asset) {

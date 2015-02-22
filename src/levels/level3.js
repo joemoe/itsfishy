@@ -38,7 +38,7 @@ var level3 = {
  		x += 400
  		this.addDeathZone(x, 300, 'octopus');
 
- 		this.loadOffset = x - 1000;
+ 		// this.loadOffset = x - 1000;
 
  		this.world.width = x + 500;
  	}, addObstacle: function(x, y, asset) {
